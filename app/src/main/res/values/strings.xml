@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">CoinWallet</string>
     <string name="splash_fragment">Hello!</string>
-    <string name="wallet">wallet</string>
-    <string name="accounts">accounts</string>
-    <string name="browser">browser</string>
-    <string name="exchange">exchange</string>
-    <string name="settings">settings</string>
+    <string name="wallet">Wallet</string>
+    <string name="news">News</string>
+    <string name="browser">Browser</string>
+    <string name="exchange">Exchange</string>
+    <string name="settings">Settings</string>
+    <string name="recommended">Recommended</string>
 </resources>

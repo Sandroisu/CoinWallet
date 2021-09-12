@@ -1,4 +1,4 @@
-package ru.coin.alexwallet.ui.main
+package ru.coin.alexwallet.ui.fragments
 
 import androidx.lifecycle.ViewModel
 

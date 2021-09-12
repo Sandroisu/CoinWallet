@@ -1,16 +1,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/view_pager_fragment">
+    app:startDestination="@id/splash_fragment">
 
     <fragment
-        android:id="@+id/view_pager_fragment"
-        android:name="ru.coin.alexwallet.ui.main.SplashFragment"
-        tools:layout="@layout/fragment_view_pager">
+        android:id="@+id/splash_fragment"
+        android:name="ru.coin.alexwallet.ui.fragments.SplashFragment"
+        tools:layout="@layout/fragment_splash">
 
         <action
-            android:id="@+id/action_view_pager_fragment_to_plant_detail_fragment"
-            app:destination="@id/plant_detail_fragment"
+            android:id="@+id/action_fragment_splash_to_account_fragment"
+            app:destination="@id/view_pager_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -18,14 +18,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/plant_detail_fragment"
-        android:name="com.google.samples.apps.sunflower.PlantDetailFragment"
-        android:label="@string/plant_details_title"
-        tools:layout="@layout/fragment_plant_detail">
+        android:id="@+id/view_pager_fragment"
+        android:name="ru.coin.alexwallet.ui.fragments.HomeViewPagerFragment"
+        tools:layout="@layout/fragment_view_pager">
 
         <action
-            android:id="@+id/action_plant_detail_fragment_to_gallery_fragment"
-            app:destination="@id/gallery_fragment"
+            android:id="@+id/action_view_pager_fragment_to_accounts_fragment"
+            app:destination="@id/accounts_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -34,14 +33,20 @@
             android:name="plantId"
             app:argType="string" />
     </fragment>
-
     <fragment
-        android:id="@+id/gallery_fragment"
-        android:name="com.google.samples.apps.sunflower.GalleryFragment"
-        android:label="@string/plant_details_title"
-        tools:layout="@layout/fragment_gallery">
+        android:id="@+id/accounts_fragment"
+        android:name="ru.coin.alexwallet.ui.fragments.NewsFragment"
+        android:label="@string/news"
+        tools:layout="@layout/fragment_news">
+
+        <action
+            android:id="@+id/action_plant_detail_fragment_to_gallery_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
-            android:name="plantName"
+            android:name="plantId"
             app:argType="string" />
     </fragment>
 

@@ -35,17 +35,12 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/app_bar_layout"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
+            style="@style/Widget.MaterialComponents.TabLayout.Colored"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
-            app:menu="@menu/bottom_navigation_menu"
-            android:fitsSystemWindows="true"
-            app:layout_anchor="@+id/view_pager"
-            app:layout_anchorGravity="bottom|center">
-
-        </com.google.android.material.bottomnavigation.BottomNavigationView>
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoinWallet">
         <activity
-            android:name=".MainActivity"
+            android:name="ru.coin.alexwallet.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
