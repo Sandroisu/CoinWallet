@@ -29,6 +29,7 @@ class NewsFragment : Fragment() {
 
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
         val coinsRecyclerView = binding.currencyListNews
+        coinsRecyclerView.adapter = currencyAdapter
         return binding.root
     }
 

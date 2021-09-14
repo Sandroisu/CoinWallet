@@ -1,4 +1,8 @@
 package ru.coin.alexwallet.adapters
 
-class CurrencyAdapter {
+import androidx.recyclerview.widget.RecyclerView
+
+class CurrencyAdapter:RecyclerView.Adapter<>{
+
+
 }
