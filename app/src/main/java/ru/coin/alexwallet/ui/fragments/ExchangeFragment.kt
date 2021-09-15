@@ -10,10 +10,6 @@ import ru.coin.alexwallet.R
 
 class ExchangeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ExchangeFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

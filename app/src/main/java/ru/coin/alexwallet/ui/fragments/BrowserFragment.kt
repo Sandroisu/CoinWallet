@@ -10,10 +10,6 @@ import ru.coin.alexwallet.R
 
 class BrowserFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = BrowserFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
