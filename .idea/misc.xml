@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/drawable/tab_color_selector.xml" value="0.2824074074074074" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_view_pager.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/drawable/ic_newspaper.xml" value="0.2518518518518518" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/drawable/ic_wallet.xml" value="0.2518518518518518" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout/fragment_accounts.xml" value="0.2694746376811594" />
