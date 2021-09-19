@@ -1,26 +1,27 @@
 package ru.coin.alexwallet.ui.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.coin.alexwallet.R
-import ru.coin.alexwallet.adapters.CurrencyAdapter
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import ru.coin.alexwallet.adapters.NewsAdapter
 import ru.coin.alexwallet.databinding.FragmentNewsBinding
+import ru.coin.alexwallet.viewmodels.NewsViewModel
 
+@AndroidEntryPoint
 class NewsFragment : Fragment() {
 
- private val currencyAdapter = CurrencyAdapter()
+ private val newsAdapter = NewsAdapter()
 
-    private lateinit var viewModel: MainViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-
-    }
+    private val viewModel: NewsViewModel by viewModels()
+    private var recommendedNewsJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +29,18 @@ class NewsFragment : Fragment() {
     ): View {
 
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
-        val coinsRecyclerView = binding.currencyListNews
-        coinsRecyclerView.adapter = currencyAdapter
+         binding.recommendedListNews.adapter = newsAdapter
+        search()
         return binding.root
     }
-
+    private fun search() {
+        // Make sure we cancel the previous job before creating a new one
+        recommendedNewsJob?.cancel()
+        recommendedNewsJob = lifecycleScope.launch {
+            viewModel.searchPictures().collectLatest {
+                newsAdapter.submitData(it)
+            }
+        }
+    }
 
 }

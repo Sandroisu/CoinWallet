@@ -4,14 +4,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ru.coin.alexwallet.R
 import androidx.databinding.DataBindingUtil.setContentView
-import androidx.lifecycle.OnLifecycleEvent
+import dagger.hilt.android.AndroidEntryPoint
+import ru.coin.alexwallet.data.AppDatabase
 import ru.coin.alexwallet.databinding.MainActivityBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       setContentView<MainActivityBinding>(this, R.layout.main_activity)
-        lifecycle
+        AppDatabase.getInstance(this)
+        setContentView<MainActivityBinding>(this, R.layout.main_activity)
+
     }
 }
