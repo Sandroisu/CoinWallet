@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -18,8 +19,7 @@ import ru.coin.alexwallet.viewmodels.NewsViewModel
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
 
- private val newsAdapter = NewsAdapter()
-
+    private val newsAdapter = NewsAdapter()
     private val viewModel: NewsViewModel by viewModels()
     private var recommendedNewsJob: Job? = null
 
@@ -27,12 +27,13 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
-         binding.recommendedListNews.adapter = newsAdapter
+        context ?: return binding.root
+        binding.recommendedListNews.adapter = newsAdapter
         search()
         return binding.root
     }
+
     private fun search() {
         // Make sure we cancel the previous job before creating a new one
         recommendedNewsJob?.cancel()

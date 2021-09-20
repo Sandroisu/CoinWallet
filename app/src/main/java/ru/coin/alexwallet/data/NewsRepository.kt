@@ -19,6 +19,6 @@ class NewsRepository @Inject constructor(private val newsService: NewsService) {
     }
 
     companion object {
-        private const val NETWORK_PAGE_SIZE = 25
+        private const val NETWORK_PAGE_SIZE = 10
     }
 }
