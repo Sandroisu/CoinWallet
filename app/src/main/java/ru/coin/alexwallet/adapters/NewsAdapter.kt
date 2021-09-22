@@ -1,6 +1,7 @@
 package ru.coin.alexwallet.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -42,7 +43,12 @@ class NewsAdapter : PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(NewsDif
         }
 
         fun bind(item: NewsItem?) {
+            if (item == null){
+                binding.newsListItemProgress.visibility = View.VISIBLE
+                return
+            }
             binding.apply {
+                binding.newsListItemProgress.visibility = View.GONE
                 news = item
                 executePendingBindings()
             }

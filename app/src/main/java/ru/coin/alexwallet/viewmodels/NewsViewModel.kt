@@ -11,11 +11,17 @@ import ru.coin.alexwallet.data.NewsRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class NewsViewModel  @Inject constructor(
-    private val repository: NewsRepository
+class NewsViewModel @Inject constructor(
+    private val repository: NewsRepository,
 ) : ViewModel() {
-
+    private var searchResult: Flow<PagingData<NewsItem>>? = null
     fun searchPictures(): Flow<PagingData<NewsItem>> {
-        return repository.getSearchResultStream().cachedIn(viewModelScope)
+        return if (searchResult == null) {
+            val newResult = repository.getSearchResultStream().cachedIn(viewModelScope)
+            searchResult = newResult
+            newResult
+        } else {
+            return searchResult as Flow<PagingData<NewsItem>>
+        }
     }
 }

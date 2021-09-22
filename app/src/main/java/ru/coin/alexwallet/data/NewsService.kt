@@ -13,6 +13,7 @@ interface NewsService {
     @GET("svc/search/v2/articlesearch.json")
     suspend fun searchPhotos(
         @Query("q") query: String,
+        @Query("page") page: Int,
         @Query("api-key") clientId: String = BuildConfig.NEW_YORK_TIMES
     ): NewsSearchResponse
 
@@ -20,7 +21,8 @@ interface NewsService {
         private const val BASE_URL = "https://api.nytimes.com/"
 
         fun create(): NewsService {
-            val logger = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
+            val logger =
+                HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(logger)
