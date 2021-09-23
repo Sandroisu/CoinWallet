@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.coin.alexwallet.adapters.NewsAdapter
@@ -34,7 +35,7 @@ class NewsFragment : Fragment() {
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
         context ?: return binding.root
         val orientation = activity?.resources?.configuration?.orientation
-        var lm: LinearLayoutManager
+        val lm: LinearLayoutManager
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             lm = object : LinearLayoutManager(context) {
                 override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
@@ -57,7 +58,7 @@ class NewsFragment : Fragment() {
         // Make sure we cancel the previous job before creating a new one
         recommendedNewsJob?.cancel()
         recommendedNewsJob = lifecycleScope.launch {
-            viewModel.searchPictures()?.collectLatest {
+            viewModel.searchPictures().collectLatest {
                 newsAdapter.submitData(it)
             }
         }

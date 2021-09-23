@@ -10,6 +10,10 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.postDelayed({ findNavController().navigate(R.id.action_fragment_splash_to_account_fragment) }, 700)
+        view.setOnClickListener { findNavController().navigate(R.id.action_fragment_splash_to_account_fragment) }
+        view.postDelayed(
+            { findNavController().navigate(R.id.action_fragment_splash_to_account_fragment) },
+            700
+        )
     }
 }

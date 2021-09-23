@@ -1,16 +1,14 @@
 package ru.coin.alexwallet.adapters
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
+import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import ru.coin.alexwallet.data.News
 import ru.coin.alexwallet.data.NewsItem
 import ru.coin.alexwallet.databinding.NewsListItemBinding
 
@@ -35,20 +33,21 @@ class NewsAdapter : PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(NewsDif
         private val binding: NewsListItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.setClickListener { view ->
+            binding.setClickListener {
                 binding.news?.let { news ->
-
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(news.newsUrl))
+                    ContextCompat.startActivity(binding.root.context, intent, null)
                 }
             }
         }
 
         fun bind(item: NewsItem?) {
-            if (item == null){
+            if (item == null) {
                 binding.newsListItemProgress.visibility = View.VISIBLE
-                return
+            } else {
+                binding.newsListItemProgress.visibility = View.GONE
             }
             binding.apply {
-                binding.newsListItemProgress.visibility = View.GONE
                 news = item
                 executePendingBindings()
             }
@@ -58,7 +57,7 @@ class NewsAdapter : PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(NewsDif
     private class NewsDiffCallback : DiffUtil.ItemCallback<NewsItem>() {
 
         override fun areItemsTheSame(old: NewsItem, aNew: NewsItem): Boolean {
-            return old.topic == aNew.topic
+            return old.leadParagraph == aNew.leadParagraph
         }
 
         override fun areContentsTheSame(old: NewsItem, aNew: NewsItem): Boolean {
