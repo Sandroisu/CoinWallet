@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +37,7 @@ class NewsFragment : Fragment() {
         context ?: return binding.root
         val orientation = activity?.resources?.configuration?.orientation
         val lm: LinearLayoutManager
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (Configuration.ORIENTATION_PORTRAIT == orientation) {
             lm = object : LinearLayoutManager(context) {
                 override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
                     lp?.width = (width / 1.5).toInt()
@@ -48,14 +49,14 @@ class NewsFragment : Fragment() {
             lm = LinearLayoutManager(context)
             lm.orientation = LinearLayoutManager.VERTICAL
         }
-        binding.recommendedListNews.layoutManager = lm
-        binding.recommendedListNews.adapter = newsAdapter
+        binding.fragmentNewsRecommendedHorizontal.layoutManager = lm
+        binding.fragmentNewsRecommendedHorizontal.adapter = newsAdapter
+        binding.fragmentNewsRecommendedVertical?.adapter = newsAdapter
         search()
         return binding.root
     }
 
     private fun search() {
-        // Make sure we cancel the previous job before creating a new one
         recommendedNewsJob?.cancel()
         recommendedNewsJob = lifecycleScope.launch {
             viewModel.searchPictures().collectLatest {

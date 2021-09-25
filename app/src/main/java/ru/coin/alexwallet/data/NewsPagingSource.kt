@@ -20,7 +20,6 @@ class NewsPagingSource(
                 data = newsItems,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
                 nextKey = if (page > STARTING_PAGE_INDEX) null else page + 1,
-                it
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)
