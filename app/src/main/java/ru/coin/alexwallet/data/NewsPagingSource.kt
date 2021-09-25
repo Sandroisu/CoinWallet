@@ -17,10 +17,9 @@ class NewsPagingSource(
             val response = service.searchPhotos(query, page - 1)
             val newsItems = response.results.docs
             LoadResult.Page(
-                data = newsItems,
-                prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
                 nextKey = if (page > STARTING_PAGE_INDEX) null else page + 1,
-                it
+                prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
+                data = newsItems,
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)

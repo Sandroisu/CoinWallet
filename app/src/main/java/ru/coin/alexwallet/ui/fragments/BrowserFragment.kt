@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ru.coin.alexwallet.R
-
+import ru.coin.alexwallet.databinding.FragmentBrowserBinding
 class BrowserFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
@@ -21,7 +20,10 @@ class BrowserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_browser, container, false)
+        val binding = FragmentBrowserBinding.inflate(inflater, container, false)
+        context ?: return binding.root
+
+        return binding.root
     }
 
 }
