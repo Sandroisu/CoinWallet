@@ -24,6 +24,7 @@ class HomeViewPagerFragment : Fragment() {
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.setIcon(getTabIcon(position))
         }.attach()
+        viewPager.isUserInputEnabled = false
         return binding.root
     }
 

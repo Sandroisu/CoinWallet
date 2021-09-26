@@ -29,20 +29,12 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/currency_list_news"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
                 android:clipToPadding="false"
-                app:layout_constraintTop_toBottomOf="@id/title_news"
-                app:layout_constraintBottom_toTopOf="@id/fragment_news_guide_v20"/>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/fragment_news_guide_v20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.2" />
+                app:layout_constraintTop_toBottomOf="@id/title_news" />
 
             <TextView
                 android:id="@+id/recommended_news"
@@ -58,20 +50,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fragment_news_recommended_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="300dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
                 android:clipToPadding="false"
-                app:layout_constraintTop_toBottomOf="@id/recommended_news"
-                app:layout_constraintBottom_toTopOf="@id/fragment_news_guide_h60"/>
+                app:layout_constraintTop_toBottomOf="@id/recommended_news" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/fragment_news_guide_h60"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.60" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/fragment_news_recommended_vertical"
@@ -80,10 +65,31 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp"
+                android:clipToPadding="false"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:clipToPadding="false"
-                app:layout_constraintTop_toBottomOf="@id/fragment_news_guide_h60"/>
+                app:layout_constraintTop_toBottomOf="@id/fragment_news_recommended_horizontal" />
+
+            <ProgressBar
+                android:id="@+id/fragment_news_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fragment_news_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/loading_problem"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

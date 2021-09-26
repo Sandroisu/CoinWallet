@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/news_nav"
+        android:icon="@drawable/ic_news"
+        android:title="@string/news"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+    <item
+        android:id="@+id/browser_nav"
+        android:icon="@drawable/ic_browser"
+        android:title="@string/browser"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/wallet_nav"
+        android:icon="@drawable/ic_wallet"
+        android:title="@string/wallet"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/exchange_nav"
+        android:icon="@drawable/ic_exchange"
+        android:title="@string/exchange"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/settings_nav"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings"
+        app:showAsAction="always" />
+</menu>

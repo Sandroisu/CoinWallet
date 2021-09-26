@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wallet_nav"
+    app:startDestination="@id/wallet_fragment">
+
+    <fragment
+        android:id="@+id/wallet_fragment"
+        android:name="ru.coin.alexwallet.ui.fragments.WalletFragment"
+        android:label="@string/wallet"
+        tools:layout="@layout/fragment_wallet"/>
+
+</navigation>

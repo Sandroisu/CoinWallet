@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -42,11 +43,6 @@ class NewsAdapter : PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(NewsDif
         }
 
         fun bind(item: NewsItem?) {
-            if (item == null) {
-                binding.newsListItemProgress.visibility = View.VISIBLE
-            } else {
-                binding.newsListItemProgress.visibility = View.GONE
-            }
             binding.apply {
                 news = item
                 executePendingBindings()
