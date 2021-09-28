@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/browser_nav"
     app:startDestination="@id/browser_fragment">
 
-    <fragment
+        <fragment
         android:id="@+id/browser_fragment"
         android:name="ru.coin.alexwallet.ui.fragments.BrowserFragment"
-        android:label="@string/wallet"
-        tools:layout="@layout/fragment_browser"/>
+        android:label="@string/browser"
+        tools:layout="@layout/fragment_browser">
+        <action
+            android:id="@+id/action_browser_to_browser_history"
+            app:destination="@id/browser_history_fragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_bottom"
+            app:popEnterAnim="@anim/slide_in_bottom"
+            app:popExitAnim="@anim/slide_out_bottom" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/browser_history_fragment"
+        android:name="ru.coin.alexwallet.ui.fragments.BrowserHistoryFragment"
+        android:label="@string/browser_history"
+        tools:layout="@layout/fragment_browser_history" />
 
 </navigation>

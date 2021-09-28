@@ -3,27 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/drawable/bottom_navigation_icon_color_selector.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/drawable/edit_text_background.xml" value="0.3828125" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/drawable/ic_browser.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/drawable/ic_browser_history.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/drawable/ic_exchange.xml" value="0.26666666666666666" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/drawable/round_shape.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/drawable/tab_color_selector.xml" value="0.2824074074074074" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout-land/fragment_news.xml" value="0.35495495495495494" />
-        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_browser.xml" value="0.2015625" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_browser.xml" value="0.5" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_browser_history.xml" value="0.20208333333333334" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_empty.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_exchange.xml" value="0.2015625" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_news.xml" value="0.2015625" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_settings.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_splash.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_view_pager.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/fragment_wallet.xml" value="0.20833333333333334" />
-        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/main_activity.xml" value="0.2015625" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/main_activity.xml" value="0.5" />
         <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/layout/news_list_item.xml" value="0.4722222222222222" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/drawable/ic_browser.xml" value="0.3828125" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/drawable/ic_exchange.xml" value="0.3828125" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/drawable/ic_news.xml" value="0.3828125" />
+        <entry key="..\:/Users/a-slatinin/CoinWallet/app/src/main/res/menu/navigation.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/drawable/ic_newspaper.xml" value="0.2518518518518518" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/drawable/ic_settings.xml" value="0.3828125" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/drawable/ic_wallet.xml" value="0.2518518518518518" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/drawable/splash_background.xml" value="0.22135416666666666" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout-land/fragment_news.xml" value="0.17372134038800705" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout-land/news_list_item.xml" value="0.17372134038800705" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout/fragment_accounts.xml" value="0.2694746376811594" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout/fragment_browser.xml" value="0.2694746376811594" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout/fragment_exchange.xml" value="0.2694746376811594" />
@@ -35,9 +36,7 @@
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout/main_activity.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout/main_fragment.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout/news_list_item.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/layout/view_pager_fragment.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/menu/navigation.xml" value="0.20520833333333333" />
       </map>
     </option>
   </component>

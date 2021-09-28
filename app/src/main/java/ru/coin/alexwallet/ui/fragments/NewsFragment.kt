@@ -63,8 +63,8 @@ class NewsFragment : Fragment() {
         binding.fragmentNewsRecommendedVertical?.adapter = newsAdapter
         lifecycleScope.launch {
             newsAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.fragmentNewsProgress?.isVisible = loadStates.refresh is LoadState.Loading
-                binding.fragmentNewsError?.isVisible = loadStates.refresh is LoadState.Error
+                binding.fragmentNewsProgress.isVisible = loadStates.refresh is LoadState.Loading
+                binding.fragmentNewsError.isVisible = loadStates.refresh is LoadState.Error
             }
         }
         val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -77,7 +77,7 @@ class NewsFragment : Fragment() {
             })
         }
         context?.let {
-            binding.fragmentNewsError?.isVisible = ConnectionUtil.isOnline(it)
+            binding.fragmentNewsError.isVisible = ConnectionUtil.isOnline(it)
             if (ConnectionUtil.isOnline(it)) {
                 search()
             }
@@ -86,7 +86,6 @@ class NewsFragment : Fragment() {
     }
 
     private fun search() {
-        // Make sure we cancel the previous job before creating a new one
         recommendedNewsJob?.cancel()
         recommendedNewsJob = lifecycleScope.launch {
             viewModel.searchPictures().collectLatest {
