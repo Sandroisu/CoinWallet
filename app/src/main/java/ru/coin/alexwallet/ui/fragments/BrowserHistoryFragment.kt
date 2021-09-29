@@ -1,5 +1,6 @@
 package ru.coin.alexwallet.ui.fragments
 
+import android.animation.Animator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
