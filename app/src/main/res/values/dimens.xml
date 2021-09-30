@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="image_corner_radius">24dp</dimen>
+    <dimen name="screen_title_size">24sp</dimen>
+    <dimen name="standard_margin">12dp</dimen>
+    <dimen name="stroke_width">1.5dp</dimen>
 </resources>

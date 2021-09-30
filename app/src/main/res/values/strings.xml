@@ -10,4 +10,5 @@
     <string name="loading_problem">There was a problem when loading</string>
     <string name="browser_history">History</string>
     <string name="enter_url">Enter Url</string>
+    <string name="close">Close</string>
 </resources>

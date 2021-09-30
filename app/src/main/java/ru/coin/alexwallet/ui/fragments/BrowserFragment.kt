@@ -2,11 +2,13 @@ package ru.coin.alexwallet.ui.fragments
 
 import android.animation.Animator
 import android.animation.AnimatorInflater
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,32 +25,36 @@ import androidx.navigation.fragment.findNavController
 import ru.coin.alexwallet.R
 import ru.coin.alexwallet.databinding.FragmentBrowserBinding
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
-
 
 import ru.coin.alexwallet.component.CoinEditText
 import ru.coin.alexwallet.component.CoinEditTextImeBackListener
 import ru.coin.alexwallet.component.OnEndIconClickListener
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.activity.OnBackPressedCallback
 
+const val ABOUT_BLANK = "about:blank"
 
 class BrowserFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentBrowserBinding
+    private var anythingToHandleBeforeNavigateUp = false
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentBrowserBinding.inflate(inflater, container, false)
         context ?: return binding.root
-        binding.fragmentBrowserWebView.webViewClient = MyWebViewClient()
+        binding.fragmentBrowserWebView.webViewClient =
+            MyWebViewClient(binding.fragmentBrowserEditText)
         binding.fragmentBrowserEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 var text = binding.fragmentBrowserEditText.text.toString()
@@ -62,6 +68,7 @@ class BrowserFragment : Fragment() {
                 binding.fragmentBrowserEditText.setText(text)
                 binding.fragmentBrowserWebView.loadUrl(text)
                 binding.fragmentBrowserImage.isVisible = false
+                anythingToHandleBeforeNavigateUp = true
                 return@setOnEditorActionListener true
             } else {
                 return@setOnEditorActionListener false
@@ -75,11 +82,14 @@ class BrowserFragment : Fragment() {
                         activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
                     imm?.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
                 }
+                binding.fragmentBrowserEditText.clearFocus()
             }
 
         })
         binding.fragmentBrowserEditText.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
+                binding.fragmentBrowserClose.visibility = View.GONE
+                binding.fragmentBrowserTitle.visibility = View.GONE
                 val constraintSet = ConstraintSet()
                 constraintSet.clone(binding.fragmentBrowserRootLayout)
                 constraintSet.clear(binding.fragmentBrowserEditText.id, ConstraintSet.BOTTOM)
@@ -88,15 +98,20 @@ class BrowserFragment : Fragment() {
                     binding.fragmentBrowserEditText.id,
                     ConstraintSet.TOP,
                     binding.fragmentBrowserRootLayout.id,
-                    ConstraintSet.TOP
+                    ConstraintSet.TOP, resources.getDimensionPixelSize(R.dimen.standard_margin)
                 )
                 constraintSet.connect(
                     binding.fragmentBrowserWebView.id,
                     ConstraintSet.TOP,
                     binding.fragmentBrowserEditText.id,
-                    ConstraintSet.BOTTOM
+                    ConstraintSet.BOTTOM, resources.getDimensionPixelSize(R.dimen.standard_margin)
                 )
                 constraintSet.applyTo(binding.fragmentBrowserRootLayout)
+                v.postDelayed({
+                    if (!v.hasFocus()) {
+                        v.requestFocus()
+                    }
+                }, 200)
             }
         }
         binding.setClickListener {
@@ -108,10 +123,37 @@ class BrowserFragment : Fragment() {
             override fun onImeBack(ctrl: CoinEditText, text: String) {
                 if (text.isEmpty()) {
                     restoreStartScreen()
+                    binding.fragmentBrowserEditText.clearFocus()
                 }
             }
         })
         binding.fragmentBrowserWebView.setBackgroundColor(Color.TRANSPARENT)
+        binding.fragmentBrowserWebView.settings.javaScriptEnabled = true
+        binding.fragmentBrowserClose.setOnClickListener { findNavController().navigateUp() }
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val backForwardList = binding.fragmentBrowserWebView.copyBackForwardList()
+                    val index = backForwardList.currentIndex
+                    if (binding.fragmentBrowserWebView.canGoBack() && index > 0) {
+                        binding.fragmentBrowserWebView.goBack()
+                        binding.fragmentBrowserEditText.text = Editable.Factory.getInstance()
+                            .newEditable(
+                                backForwardList.getItemAtIndex(index-1).url
+                            )
+                    } else {
+                        if (anythingToHandleBeforeNavigateUp) {
+                            binding.fragmentBrowserEditText.text =
+                                Editable.Factory.getInstance().newEditable("")
+                            restoreStartScreen()
+                        } else {
+                            findNavController().navigateUp()
+                        }
+                    }
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
         return binding.root
     }
 
@@ -130,10 +172,14 @@ class BrowserFragment : Fragment() {
         }
     }
 
-    private class MyWebViewClient : WebViewClient() {
+    private class MyWebViewClient(val editText: CoinEditText) : WebViewClient() {
         @TargetApi(Build.VERSION_CODES.N)
         override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-            view.loadUrl(request.url.toString())
+            if (request.url.toString().contains("http")) {
+                editText.text = Editable.Factory.getInstance().newEditable(request.url.toString())
+                view.loadUrl(request.url.toString())
+                view.setBackgroundColor(Color.WHITE)
+            }
             return true
         }
 
@@ -141,11 +187,21 @@ class BrowserFragment : Fragment() {
             view.loadUrl(url)
             return true
         }
+
+        override fun onPageFinished(view: WebView?, url: String?) {
+            if (ABOUT_BLANK == url){
+                view?.clearHistory()
+            }
+            super.onPageFinished(view, url)
+        }
+
+
     }
 
     private fun restoreStartScreen() {
         val constraintSet = ConstraintSet()
-        binding.fragmentBrowserWebView.loadUrl("about:blank")
+        binding.fragmentBrowserWebView.loadUrl(ABOUT_BLANK)
+        binding.fragmentBrowserWebView.setBackgroundColor(Color.TRANSPARENT)
         constraintSet.clone(binding.fragmentBrowserRootLayout)
         constraintSet.clear(binding.fragmentBrowserEditText.id, ConstraintSet.TOP)
         constraintSet.clear(binding.fragmentBrowserWebView.id, ConstraintSet.TOP)
@@ -162,7 +218,9 @@ class BrowserFragment : Fragment() {
             ConstraintSet.BOTTOM
         )
         constraintSet.applyTo(binding.fragmentBrowserRootLayout)
-        binding.fragmentBrowserEditText.clearFocus()
+        binding.fragmentBrowserClose.visibility = View.VISIBLE
+        binding.fragmentBrowserTitle.visibility = View.VISIBLE
+        anythingToHandleBeforeNavigateUp = false
     }
 
 }

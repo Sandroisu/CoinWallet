@@ -2,17 +2,15 @@ package ru.coin.alexwallet.component
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Rect
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.MotionEvent
-import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import ru.coin.alexwallet.R
+
 
 class CoinEditText :
     androidx.appcompat.widget.AppCompatEditText {
@@ -25,6 +23,9 @@ class CoinEditText :
     private var gotFocus = false
     private var endIconClickListener: OnEndIconClickListener? = null
     private var closeRect = Rect()
+    private var backgroundRect = Rect()
+    private var backgroundPaint = Paint()
+    private var strokeWidth = 0
 
     constructor(context: Context) : super(context) {
         setWillNotDraw(false)
@@ -32,6 +33,8 @@ class CoinEditText :
         searchIcon = AppCompatResources.getDrawable(context, R.drawable.ic_search)
         closeIcon?.let { iconSize = it.intrinsicWidth }
         iconMargin = iconSize / 3
+        paint.color = resources.getColor(R.color.backgroundColor, null)
+        strokeWidth = resources.getDimensionPixelSize(R.dimen.standard_margin)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
@@ -40,6 +43,8 @@ class CoinEditText :
         searchIcon = AppCompatResources.getDrawable(context, R.drawable.ic_search)
         closeIcon?.let { iconSize = it.intrinsicWidth }
         iconMargin = iconSize / 3
+        paint.color = resources.getColor(R.color.backgroundColor, null)
+        strokeWidth = resources.getDimensionPixelSize(R.dimen.standard_margin)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
@@ -52,6 +57,8 @@ class CoinEditText :
         searchIcon = AppCompatResources.getDrawable(context, R.drawable.ic_search)
         closeIcon?.let { iconSize = it.intrinsicWidth }
         iconMargin = iconSize / 3
+        paint.color = resources.getColor(R.color.backgroundColor, null)
+        strokeWidth = resources.getDimensionPixelSize(R.dimen.standard_margin)
     }
 
     override fun onKeyPreIme(keyCode: Int, event: KeyEvent?): Boolean {
@@ -78,18 +85,24 @@ class CoinEditText :
         if (canvas == null) {
             return
         }
-        val left = measuredWidth - iconSize - iconMargin
-        val right = left + iconSize
-        val top = measuredHeight / 2 - iconSize / 2
-        val bottom = measuredHeight / 2 + iconSize / 2
+
+        val leftIcon = measuredWidth - iconSize - iconMargin
+        val rightIcon = leftIcon + iconSize
+        val topIcon = measuredHeight / 2 - iconSize / 2
+        val bottomIcon = measuredHeight / 2 + iconSize / 2
+        val leftRect = measuredWidth - iconSize - iconMargin
+        val rightRect = measuredWidth - strokeWidth
+        val topRect = 0 + strokeWidth
+        val bottomRect = measuredHeight - strokeWidth
+        backgroundRect.set(leftRect, topRect, rightRect, bottomRect)
         if (gotFocus) {
             closeIcon?.setBounds(
-                left,
-                top,
-                right,
-                bottom
+                leftIcon,
+                topIcon,
+                rightIcon,
+                bottomIcon
             )
-
+            canvas.drawRect(backgroundRect, backgroundPaint)
             closeIcon?.draw(canvas)
             val iconCopy = closeIcon
             iconCopy?.let {
@@ -98,16 +111,17 @@ class CoinEditText :
 
         } else {
             searchIcon?.setBounds(
-                left,
-                top,
-                right,
-                bottom
+                leftIcon,
+                topIcon,
+                rightIcon,
+                bottomIcon
             )
+
+            canvas.drawRect(backgroundRect, backgroundPaint)
             searchIcon?.draw(canvas)
         }
-
-
     }
+
 
     override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect)
@@ -129,9 +143,7 @@ class CoinEditText :
         }
         return super.onTouchEvent(event)
     }
-
 }
-
 
 interface CoinEditTextImeBackListener {
     fun onImeBack(ctrl: CoinEditText, text: String)

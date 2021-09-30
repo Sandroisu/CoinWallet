@@ -16,8 +16,29 @@
         android:id="@+id/fragment_browser_root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:focusable="true"
         android:focusableInTouchMode="true">
+
+        <TextView
+            android:id="@+id/fragment_browser_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:text="@string/browser"
+            android:textSize="@dimen/screen_title_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/fragment_browser_close"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="@dimen/standard_margin"
+            android:contentDescription="@string/close"
+            android:src="@drawable/ic_close_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <ru.coin.alexwallet.component.CoinEditText
@@ -49,19 +70,38 @@
             android:layout_marginTop="12dp"
             android:background="@color/backgroundColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_browser_guide_30h" />
+            app:layout_constraintTop_toBottomOf="@id/fragment_browser_guide_30h"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp" />
 
-        <ImageView
-            android:id="@+id/fragment_browser_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/browser_history"
-            android:onClick="@{clickListener}"
-            android:src="@drawable/ic_browser_history"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/fragment_browser_guide_50v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:padding="@dimen/standard_margin"
+            app:cardBackgroundColor="@color/backgroundColor"
+            app:cardCornerRadius="@dimen/standard_margin"
+            app:strokeColor="#252547"
+            app:strokeWidth="@dimen/stroke_width"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_browser_guide_50v"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/fragment_browser_guide_30h">
 
+            <ImageView
+                android:id="@+id/fragment_browser_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/browser_history"
+                android:onClick="@{clickListener}"
+                android:src="@drawable/ic_browser_history" />
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
