@@ -9,4 +9,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="backgroundColor">#0B091D</color>
+    <color name="stroke_color">#252547</color>
 </resources>

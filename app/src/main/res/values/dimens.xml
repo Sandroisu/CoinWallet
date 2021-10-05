@@ -4,4 +4,5 @@
     <dimen name="screen_title_size">24sp</dimen>
     <dimen name="standard_margin">12dp</dimen>
     <dimen name="stroke_width">1.5dp</dimen>
+    <dimen name="half_standard_margin">6dp</dimen>
 </resources>

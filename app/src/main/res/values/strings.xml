@@ -11,4 +11,10 @@
     <string name="browser_history">History</string>
     <string name="enter_url">Enter Url</string>
     <string name="close">Close</string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="favorites">Favorites</string>
+
+    <string-array name="crypto_names">
+        <item>@string/bitcoin</item>
+    </string-array>
 </resources>

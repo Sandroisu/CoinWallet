@@ -18,6 +18,14 @@
             app:exitAnim="@anim/slide_out_bottom"
             app:popEnterAnim="@anim/slide_in_bottom"
             app:popExitAnim="@anim/slide_out_bottom" />
+
+            <action
+                android:id="@+id/action_browser_to_browser_favorites"
+                app:destination="@id/browser_favorites_fragment"
+                app:enterAnim="@anim/slide_in_bottom"
+                app:exitAnim="@anim/slide_out_bottom"
+                app:popEnterAnim="@anim/slide_in_bottom"
+                app:popExitAnim="@anim/slide_out_bottom" />
     </fragment>
 
     <fragment
@@ -25,5 +33,12 @@
         android:name="ru.coin.alexwallet.ui.fragments.BrowserHistoryFragment"
         android:label="@string/browser_history"
         tools:layout="@layout/fragment_browser_history" />
+
+    <fragment
+        android:id="@+id/browser_favorites_fragment"
+        android:name="ru.coin.alexwallet.ui.fragments.BrowserFavorites"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_browser_favorites" />
+
 
 </navigation>

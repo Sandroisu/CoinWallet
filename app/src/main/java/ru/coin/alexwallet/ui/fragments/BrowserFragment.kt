@@ -18,7 +18,6 @@ import android.view.inputmethod.InputMethodManager
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -30,7 +29,6 @@ import ru.coin.alexwallet.component.CoinEditText
 import ru.coin.alexwallet.component.CoinEditTextImeBackListener
 import ru.coin.alexwallet.component.OnEndIconClickListener
 import androidx.activity.OnBackPressedCallback
-
 const val ABOUT_BLANK = "about:blank"
 
 class BrowserFragment : Fragment() {
@@ -67,7 +65,6 @@ class BrowserFragment : Fragment() {
                 text = text.filterNot { it.isWhitespace() }
                 binding.fragmentBrowserEditText.setText(text)
                 binding.fragmentBrowserWebView.loadUrl(text)
-                binding.fragmentBrowserImage.isVisible = false
                 anythingToHandleBeforeNavigateUp = true
                 return@setOnEditorActionListener true
             } else {
@@ -88,6 +85,8 @@ class BrowserFragment : Fragment() {
         })
         binding.fragmentBrowserEditText.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
+                binding.fragmentBrowserFavoritesCard.visibility = View.GONE
+                binding.fragmentBrowserHistoryCard.visibility = View.GONE
                 binding.fragmentBrowserClose.visibility = View.GONE
                 binding.fragmentBrowserTitle.visibility = View.GONE
                 val constraintSet = ConstraintSet()
@@ -115,7 +114,10 @@ class BrowserFragment : Fragment() {
             }
         }
         binding.setClickListener {
-            findNavController().navigate(R.id.action_browser_to_browser_history)
+            when(it.id){
+                binding.fragmentBrowserFavoritesCard.id -> findNavController().navigate(R.id.action_browser_to_browser_favorites)
+                binding.fragmentBrowserHistoryCard.id -> findNavController().navigate(R.id.action_browser_to_browser_history)
+            }
         }
 
         binding.fragmentBrowserEditText.setOnImeBackListener(object :
@@ -153,8 +155,8 @@ class BrowserFragment : Fragment() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-
         return binding.root
+
     }
 
 
@@ -220,6 +222,8 @@ class BrowserFragment : Fragment() {
         constraintSet.applyTo(binding.fragmentBrowserRootLayout)
         binding.fragmentBrowserClose.visibility = View.VISIBLE
         binding.fragmentBrowserTitle.visibility = View.VISIBLE
+        binding.fragmentBrowserHistoryCard.visibility = View.VISIBLE
+        binding.fragmentBrowserFavoritesCard.visibility = View.VISIBLE
         anythingToHandleBeforeNavigateUp = false
     }
 

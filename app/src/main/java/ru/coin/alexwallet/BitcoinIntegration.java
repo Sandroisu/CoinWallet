@@ -28,7 +28,6 @@ public final class BitcoinIntegration {
      */
     public static void request(final Context context, final String address) {
         final Intent intent = makeBitcoinUriIntent(address, null);
-
         start(context, intent);
     }
 

@@ -1,4 +1,4 @@
-package ru.coin.alexwallet.data
+package ru.coin.alexwallet.storage
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

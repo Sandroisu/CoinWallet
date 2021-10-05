@@ -1,4 +1,4 @@
-package ru.coin.alexwallet.data
+package ru.coin.alexwallet.storage
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -10,6 +10,9 @@ import kotlinx.coroutines.flow.Flow
 interface UserDao {
     @Query("SELECT * FROM users WHERE id = :userId")
     fun getUser(userId: String): Flow<Users>
+
+    @Query("SELECT * FROM users WHERE name = :name")
+    suspend fun getUserByName(name: String): Users
 
     @Insert
     suspend fun insertUser(user: Users): Long

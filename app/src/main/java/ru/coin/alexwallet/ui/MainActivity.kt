@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil.setContentView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.coin.alexwallet.R
 import ru.coin.alexwallet.databinding.MainActivityBinding
+import ru.coin.alexwallet.storage.AppDatabase
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.browser_history_fragment -> bottomNavigationView.isVisible = false
+                R.id.browser_history_fragment, R.id.browser_favorites_fragment -> bottomNavigationView.isVisible = false
                 R.id.browser_fragment -> {
                     closeWithTranslationAnimation(bottomNavigationView)
                 }

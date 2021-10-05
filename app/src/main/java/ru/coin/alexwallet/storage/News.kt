@@ -1,4 +1,4 @@
-package ru.coin.alexwallet.data
+package ru.coin.alexwallet.storage
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -16,8 +16,11 @@ import androidx.room.PrimaryKey
 data class News(
     @PrimaryKey @ColumnInfo(name = "id") val newsId: String,
     val f_userId: String,
-    val title: String,
-    val article: String,
-    val imageUrl: String = ""
-
+    val topic: String,
+    val leadParagraph: String,
+    val newsUrl: String,
+    val imageUrl: String,
+    val newsImageSubType: String,
+    val pubDate: String,
+    val dateInMillis: Long
 )
