@@ -3,14 +3,12 @@ package ru.coin.alexwallet.adapters
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.coin.alexwallet.data.NewsItem
+import ru.coin.alexwallet.data.viewdata.NewsItem
 import ru.coin.alexwallet.databinding.NewsListItemBinding
 
 class NewsAdapter : PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(NewsDiffCallback()) {

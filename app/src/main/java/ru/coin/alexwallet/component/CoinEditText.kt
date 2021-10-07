@@ -8,12 +8,12 @@ import android.text.Editable
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.MotionEvent
+import android.widget.EditText
 import androidx.appcompat.content.res.AppCompatResources
 import ru.coin.alexwallet.R
 
 
-class CoinEditText :
-    androidx.appcompat.widget.AppCompatEditText {
+class CoinEditText : androidx.appcompat.widget.AppCompatEditText {
 
     private var mOnImeBackCoin: CoinEditTextImeBackListener? = null
     private var closeIcon: Drawable? = null
@@ -26,6 +26,9 @@ class CoinEditText :
     private var backgroundRect = Rect()
     private var backgroundPaint = Paint()
     private var strokeWidth = 0
+    private var viewHeight = 0
+    private var viewWidth = 0
+    private var firstTime = true
 
     constructor(context: Context) : super(context) {
         setWillNotDraw(false)
@@ -33,7 +36,13 @@ class CoinEditText :
         searchIcon = AppCompatResources.getDrawable(context, R.drawable.ic_search)
         closeIcon?.let { iconSize = it.intrinsicWidth }
         iconMargin = iconSize / 3
-        paint.color = resources.getColor(R.color.backgroundColor, null)
+        paint.color =
+            AppCompatResources.getColorStateList(context, R.color.backgroundColor).defaultColor
+        backgroundPaint.style = Paint.Style.FILL
+        backgroundPaint.isAntiAlias = true
+        backgroundPaint.isDither = true
+        backgroundPaint.color =
+            AppCompatResources.getColorStateList(context, R.color.backgroundColor).defaultColor
         strokeWidth = resources.getDimensionPixelSize(R.dimen.standard_margin)
     }
 
@@ -43,7 +52,13 @@ class CoinEditText :
         searchIcon = AppCompatResources.getDrawable(context, R.drawable.ic_search)
         closeIcon?.let { iconSize = it.intrinsicWidth }
         iconMargin = iconSize / 3
-        paint.color = resources.getColor(R.color.backgroundColor, null)
+        paint.color =
+            AppCompatResources.getColorStateList(context, R.color.backgroundColor).defaultColor
+        backgroundPaint.style = Paint.Style.FILL
+        backgroundPaint.isAntiAlias = true
+        backgroundPaint.isDither = true
+        backgroundPaint.color =
+            AppCompatResources.getColorStateList(context, R.color.backgroundColor).defaultColor
         strokeWidth = resources.getDimensionPixelSize(R.dimen.standard_margin)
     }
 
@@ -57,7 +72,13 @@ class CoinEditText :
         searchIcon = AppCompatResources.getDrawable(context, R.drawable.ic_search)
         closeIcon?.let { iconSize = it.intrinsicWidth }
         iconMargin = iconSize / 3
-        paint.color = resources.getColor(R.color.backgroundColor, null)
+        paint.color =
+            AppCompatResources.getColorStateList(context, R.color.backgroundColor).defaultColor
+        backgroundPaint.style = Paint.Style.FILL
+        backgroundPaint.isAntiAlias = true
+        backgroundPaint.isDither = true
+        backgroundPaint.color =
+            AppCompatResources.getColorStateList(context, R.color.backgroundColor).defaultColor
         strokeWidth = resources.getDimensionPixelSize(R.dimen.standard_margin)
     }
 
@@ -72,11 +93,11 @@ class CoinEditText :
     }
 
     fun setOnImeBackListener(listenerCoin: CoinEditTextImeBackListener) {
-        mOnImeBackCoin = listenerCoin;
+        mOnImeBackCoin = listenerCoin
     }
 
     fun setOnCloseIconListener(listener: OnEndIconClickListener) {
-        endIconClickListener = listener;
+        endIconClickListener = listener
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -85,15 +106,14 @@ class CoinEditText :
         if (canvas == null) {
             return
         }
-
-        val leftIcon = measuredWidth - iconSize - iconMargin
+        val leftIcon = width - iconSize - iconMargin
         val rightIcon = leftIcon + iconSize
-        val topIcon = measuredHeight / 2 - iconSize / 2
-        val bottomIcon = measuredHeight / 2 + iconSize / 2
-        val leftRect = measuredWidth - iconSize - iconMargin
-        val rightRect = measuredWidth - strokeWidth
+        val topIcon = height / 2 - iconSize / 2
+        val bottomIcon = height / 2 + iconSize / 2
+        val leftRect = width - iconSize - iconMargin
+        val rightRect = width - strokeWidth
         val topRect = 0 + strokeWidth
-        val bottomRect = measuredHeight - strokeWidth
+        val bottomRect = height - strokeWidth
         backgroundRect.set(leftRect, topRect, rightRect, bottomRect)
         if (gotFocus) {
             closeIcon?.setBounds(
@@ -108,7 +128,6 @@ class CoinEditText :
             iconCopy?.let {
                 closeRect = iconCopy.bounds
             }
-
         } else {
             searchIcon?.setBounds(
                 leftIcon,
@@ -116,7 +135,6 @@ class CoinEditText :
                 rightIcon,
                 bottomIcon
             )
-
             canvas.drawRect(backgroundRect, backgroundPaint)
             searchIcon?.draw(canvas)
         }
@@ -142,6 +160,15 @@ class CoinEditText :
             }
         }
         return super.onTouchEvent(event)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        if (firstTime) {
+            viewWidth = measuredWidth
+            viewHeight = measuredHeight
+            firstTime = false
+        }
     }
 }
 

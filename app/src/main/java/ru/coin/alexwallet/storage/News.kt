@@ -22,5 +22,6 @@ data class News(
     val imageUrl: String,
     val newsImageSubType: String,
     val pubDate: String,
+    val requestQuery: String,
     val dateInMillis: Long
 )

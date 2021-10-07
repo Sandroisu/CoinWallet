@@ -2,8 +2,7 @@ package ru.coin.alexwallet.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import ru.coin.alexwallet.data.viewdata.NewsItem
 import ru.coin.alexwallet.storage.AppDatabase
 import ru.coin.alexwallet.storage.converters.NewsItemsToNewsConverter
 import java.util.*
@@ -20,9 +19,9 @@ class NewsPagingSource(
 
         if (AppDatabase.getInstance()?.newsDao()?.hasAnyRecord() == 1) {
             val count = AppDatabase.getInstance()
-                ?.newsDao()?.isNotTooOld(Calendar.getInstance().timeInMillis - THREE_HOURS)
+                ?.newsDao()?.isNotTooOld(Calendar.getInstance().timeInMillis - THREE_HOURS, query)
             if (count != null && count > 19) {
-                val newsItems = AppDatabase.getInstance()?.newsDao()?.getLastTwenty()?.let {
+                val newsItems = AppDatabase.getInstance()?.newsDao()?.getLastTwenty(query)?.let {
                     NewsItemsToNewsConverter.getNewsItems(
                         it
                     )
@@ -41,8 +40,11 @@ class NewsPagingSource(
         return try {
             val response = service.searchPhotos(query, page - 1)
             val newsItems = response.results.docs
+            if (page == STARTING_PAGE_INDEX) {
+                AppDatabase.getInstance()?.newsDao()?.clearTableByQuery(query)
+            }
             AppDatabase.getInstance()?.newsDao()
-                ?.insertNews(NewsItemsToNewsConverter.getNewsEntity(newsItems))
+                ?.insertNews(NewsItemsToNewsConverter.getNewsEntity(newsItems, query))
             LoadResult.Page(
                 data = newsItems,
                 nextKey = if (page > STARTING_PAGE_INDEX) null else page + 1,

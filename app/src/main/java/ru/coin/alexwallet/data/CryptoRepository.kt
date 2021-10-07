@@ -7,5 +7,4 @@ import javax.inject.Singleton
 @Singleton
 class CryptoRepository @Inject constructor(private val cryptoDao: CryptoCurrencyDao) {
 
-    fun getAllCrypto() = cryptoDao.getAll()
 }

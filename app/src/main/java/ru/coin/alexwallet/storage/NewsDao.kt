@@ -17,11 +17,11 @@ interface NewsDao {
     @Query("SELECT EXISTS (SELECT 1 FROM news LIMIT 1)")
     suspend fun hasAnyRecord(): Int
 
-    @Query("SELECT COUNT(*) FROM news WHERE dateInMillis > :timeToUpdate")
-    suspend fun isNotTooOld(timeToUpdate: Long): Int
+    @Query("SELECT COUNT(*) FROM news WHERE dateInMillis > :timeToUpdate and requestQuery =:query")
+    suspend fun isNotTooOld(timeToUpdate: Long, query: String): Int
 
-    @Query("SELECT * FROM news ORDER BY pubDate DESC LIMIT 20")
-    suspend fun getLastTwenty(): List<News>
+    @Query("SELECT * FROM news where requestQuery = :query ORDER BY pubDate DESC LIMIT 20")
+    suspend fun getLastTwenty(query: String): List<News>
 
     @Insert
     suspend fun insertNews(news: News): Long
@@ -31,4 +31,7 @@ interface NewsDao {
 
     @Delete
     suspend fun deleteNews(news: News)
+
+    @Query("DELETE FROM news where requestQuery = :query")
+    suspend fun clearTableByQuery(query: String)
 }

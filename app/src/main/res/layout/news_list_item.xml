@@ -11,7 +11,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="news"
-            type="ru.coin.alexwallet.data.NewsItem"/>
+            type="ru.coin.alexwallet.data.viewdata.NewsItem"/>
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,7 +31,7 @@
 
 
             <TextView
-                android:id="@+id/photographer"
+                android:id="@+id/crypto_list_item_crypto_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CryptoCurrencyDao {
     @Query("SELECT * FROM cryptocurrency")
-    fun getAll(): Flow<List<CryptoCurrency>>
+    suspend fun getAll(): List<CryptoCurrency>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCrypto(currency: CryptoCurrency): Long
