@@ -51,6 +51,7 @@ class NewsAdapter : PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(NewsDif
     private class NewsDiffCallback : DiffUtil.ItemCallback<NewsItem>() {
 
         override fun areItemsTheSame(old: NewsItem, aNew: NewsItem): Boolean {
+
             return old.leadParagraph == aNew.leadParagraph
         }
 

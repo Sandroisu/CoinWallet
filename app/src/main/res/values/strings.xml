@@ -13,6 +13,7 @@
     <string name="close">Close</string>
     <string name="bitcoin">Bitcoin</string>
     <string name="favorites">Favorites</string>
+    <string name="crypto_currency_type">Crypto currency type</string>
 
     <string-array name="crypto_names">
         <item>@string/bitcoin</item>

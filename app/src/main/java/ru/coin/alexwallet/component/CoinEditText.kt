@@ -8,7 +8,7 @@ import android.text.Editable
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.MotionEvent
-import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import ru.coin.alexwallet.R
 
@@ -106,8 +106,13 @@ class CoinEditText : androidx.appcompat.widget.AppCompatEditText {
         if (canvas == null) {
             return
         }
+        val srect = Rect()
+        getDrawingRect(srect)
         val leftIcon = width - iconSize - iconMargin
         val rightIcon = leftIcon + iconSize
+        if (srect.right>rightIcon){
+            Toast.makeText(context, "Ups", Toast.LENGTH_SHORT).show()
+        }
         val topIcon = height / 2 - iconSize / 2
         val bottomIcon = height / 2 + iconSize / 2
         val leftRect = width - iconSize - iconMargin
@@ -139,7 +144,6 @@ class CoinEditText : androidx.appcompat.widget.AppCompatEditText {
             searchIcon?.draw(canvas)
         }
     }
-
 
     override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect)

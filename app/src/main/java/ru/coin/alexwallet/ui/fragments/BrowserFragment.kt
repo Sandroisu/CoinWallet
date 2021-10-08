@@ -168,7 +168,7 @@ class BrowserFragment : Fragment() {
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
         //необходим для кастомной анимации startDestination фрагмента в navigation
         return if (enter) {
-            AnimatorInflater.loadAnimator(activity, ru.coin.alexwallet.R.animator.slide_in_bottom)
+            AnimatorInflater.loadAnimator(activity, R.animator.slide_in_bottom)
         } else {
             AnimatorInflater.loadAnimator(activity, R.animator.slide_out_bottom)
         }

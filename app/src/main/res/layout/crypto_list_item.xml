@@ -6,9 +6,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="crypto"
-            type="ru.coin.alexwallet.data.viewdata.CryptoItem"/>
+            type="ru.coin.alexwallet.data.viewdata.CryptoItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,25 +19,28 @@
 
         <ImageView
             android:id="@+id/crypto_list_item_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="@string/crypto_currency_type"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
             android:id="@+id/crypto_list_item_crypto_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="3"
             android:padding="12dp"
             android:text="@{crypto.name}"
-            android:maxLines="3"
-            android:gravity="center"
             android:textSize="14sp"
-            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="@id/crypto_list_item_image"
+            app:layout_constraintStart_toStartOf="@id/crypto_list_item_image"
             app:layout_constraintTop_toBottomOf="@id/crypto_list_item_image"
-            tools:text="Some News"/>
+            tools:text="Some News" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

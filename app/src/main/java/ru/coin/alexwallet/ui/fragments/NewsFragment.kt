@@ -13,10 +13,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -28,6 +31,8 @@ import ru.coin.alexwallet.data.viewdata.CryptoItem
 import ru.coin.alexwallet.databinding.FragmentNewsBinding
 import ru.coin.alexwallet.utils.ConnectionUtil
 import ru.coin.alexwallet.viewmodels.NewsViewModel
+import ru.coin.alexwallet.workers.CRYPTO_DATABASE_WORK_RESULT
+import ru.coin.alexwallet.workers.UNIQUE_CRYPTO_DATABASE_WORK_TAG
 
 const val DEFAULT_QUERY = "crypto"
 
@@ -93,6 +98,37 @@ class NewsFragment : Fragment() {
     }
 
     private fun getCryptoItems() {
+        context?.let {
+            WorkManager.getInstance(it).getWorkInfosForUniqueWorkLiveData(
+                UNIQUE_CRYPTO_DATABASE_WORK_TAG
+            ).observe(viewLifecycleOwner, Observer { list ->
+                if (list.size > 0) {
+                    val info = list[0]
+                    if (info.state.isFinished) {
+                        val result = info.outputData.getBoolean(CRYPTO_DATABASE_WORK_RESULT, false)
+                        if (result) {
+                            launchCryptoCurrencyQuery()
+                        }
+                    }
+                } else {
+                    launchCryptoCurrencyQuery()
+                }
+            })
+        }
+
+    }
+
+    private fun search(query: String) {
+
+        recommendedNewsJob?.cancel()
+        recommendedNewsJob = lifecycleScope.launch {
+            viewModel.searchPictures(query).collectLatest {
+                newsAdapter.submitData(it)
+            }
+        }
+    }
+
+    private fun launchCryptoCurrencyQuery() {
         lifecycleScope.launch {
             val cryptoItems = ArrayList<CryptoItem>()
             viewModel.getCryptoCurrencies()?.forEach {
@@ -111,15 +147,6 @@ class NewsFragment : Fragment() {
             }
             binding.fragmentNewsCryptoCurrencyList.adapter =
                 CryptoAdapter(cryptoItems, itemClickCallback)
-        }
-    }
-
-    private fun search(query: String) {
-        recommendedNewsJob?.cancel()
-        recommendedNewsJob = lifecycleScope.launch {
-            viewModel.searchPictures(query).collectLatest {
-                newsAdapter.submitData(it)
-            }
         }
     }
 

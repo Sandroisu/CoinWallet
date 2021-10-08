@@ -2,7 +2,9 @@ package ru.coin.alexwallet.workers
 
 import android.content.Context
 import androidx.work.CoroutineWorker
+import androidx.work.Data
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.coin.alexwallet.storage.AppDatabase
@@ -12,6 +14,8 @@ import java.util.*
 
 const val CRYPTO_NAMES = "ru.coin.alexwallet.workers.CRYPTO_NAMES"
 const val TEST_USER = "ru.coin.alexwallet.workers.TEST_USER"
+const val UNIQUE_CRYPTO_DATABASE_WORK_TAG = "ru.coin.alexwallet.workers.UNIQUE_CRYPTO_DATABASE_WORK_TAG"
+const val CRYPTO_DATABASE_WORK_RESULT = "ru.coin.alexwallet.workers.CRYPTO_DATABASE_WORK_RESULT"
 
 class CryptoDatabaseWorker(
     context: Context,
@@ -27,13 +31,16 @@ class CryptoDatabaseWorker(
                     val crypto = CryptoCurrency(name.lowercase())
                         AppDatabase.getInstance()?.cryptoCurrencyDao()?.insertCrypto(crypto)
                 }
-                Result.success()
+                val data : Data = workDataOf(CRYPTO_DATABASE_WORK_RESULT to true)
+                Result.success(data)
             } else {
-                Result.failure()
+                val data : Data = workDataOf(CRYPTO_DATABASE_WORK_RESULT to false)
+                Result.failure(data)
             }
         } catch (ex: Exception) {
+            val data : Data = workDataOf(CRYPTO_DATABASE_WORK_RESULT to false)
             ex.printStackTrace()
-            Result.failure()
+            Result.failure(data)
         }
     }
 
