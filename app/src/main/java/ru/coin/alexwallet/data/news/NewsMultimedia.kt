@@ -1,4 +1,4 @@
-package ru.coin.alexwallet.data
+package ru.coin.alexwallet.data.news
 
 import com.google.gson.annotations.SerializedName
 const val SUBTYPE = "square320"

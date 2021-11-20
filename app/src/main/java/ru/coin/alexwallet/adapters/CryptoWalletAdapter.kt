@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.coin.alexwallet.data.viewdata.CryptoItem
 import ru.coin.alexwallet.databinding.CryptoListItemBinding
 
-class CryptoAdapter(private val cryptoList: List<CryptoItem>, private val clickCallback: CryptoItemClickCallback) :
-    RecyclerView.Adapter<CryptoAdapter.CryptoViewHolder>() {
+class CryptoWalletAdapter (private val cryptoList: List<CryptoItem>, private val clickCallback: CryptoWalletItemClickCallback) :
+    RecyclerView.Adapter<CryptoWalletAdapter.CryptoWalletViewHolder>() {
 
 
-    class CryptoViewHolder(
+    class CryptoWalletViewHolder(
         private val binding: CryptoListItemBinding,
-        private val clickCallback: CryptoItemClickCallback
+        private val clickCallback: CryptoWalletItemClickCallback
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CryptoItem?) {
@@ -24,14 +24,14 @@ class CryptoAdapter(private val cryptoList: List<CryptoItem>, private val clickC
             item?.let {
                 val name = it.name
                 binding.cryptoListItemImage.setOnClickListener {
-                    clickCallback.onItemClick(name)
+                    clickCallback.onWalletItemClick(name)
                 }
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoViewHolder {
-        return CryptoViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CryptoWalletViewHolder {
+        return CryptoWalletViewHolder(
             CryptoListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -40,7 +40,7 @@ class CryptoAdapter(private val cryptoList: List<CryptoItem>, private val clickC
         )
     }
 
-    override fun onBindViewHolder(holder: CryptoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CryptoWalletViewHolder, position: Int) {
         holder.bind(cryptoList[position])
     }
 
@@ -50,6 +50,6 @@ class CryptoAdapter(private val cryptoList: List<CryptoItem>, private val clickC
 
 }
 
-interface CryptoItemClickCallback{
-    fun onItemClick(name: String)
+interface CryptoWalletItemClickCallback{
+    fun onWalletItemClick(name: String)
 }

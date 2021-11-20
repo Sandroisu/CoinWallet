@@ -26,13 +26,17 @@ class NewsViewModel @Inject constructor(
             searchResult = newResult
             newResult
         } else {
-            return searchResult as Flow<PagingData<NewsItem>>
+            searchResult as Flow<PagingData<NewsItem>>
         }
     }
 
     suspend fun getCryptoCurrencies(): List<CryptoCurrency>? {
-        cryptoCurrencies = AppDatabase.getInstance()?.cryptoCurrencyDao()?.getAll()
-        return cryptoCurrencies
+        return if(cryptoCurrencies == null) {
+            cryptoCurrencies = AppDatabase.getInstance()?.cryptoCurrencyDao()?.getAll()
+            cryptoCurrencies
+        }else {
+            cryptoCurrencies
+        }
     }
 
 }

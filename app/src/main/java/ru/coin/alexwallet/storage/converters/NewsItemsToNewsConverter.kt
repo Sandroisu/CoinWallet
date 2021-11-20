@@ -1,12 +1,13 @@
 package ru.coin.alexwallet.storage.converters
 
+import ru.coin.alexwallet.data.news.NewsMultimedia
 import ru.coin.alexwallet.data.viewdata.NewsItem
-import ru.coin.alexwallet.data.NewsMultimedia
-import ru.coin.alexwallet.data.SUBTYPE
+import ru.coin.alexwallet.data.news.SUBTYPE
 import ru.coin.alexwallet.storage.AppDatabase
 import ru.coin.alexwallet.storage.News
 import ru.coin.alexwallet.workers.TEST_USER
-import java.util.*
+import java.util.Calendar
+import java.util.UUID
 import kotlin.collections.ArrayList
 
 class NewsItemsToNewsConverter {

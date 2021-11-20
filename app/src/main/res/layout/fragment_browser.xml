@@ -52,7 +52,6 @@
             android:imeOptions="actionDone"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:padding="12dp"
             android:textColorHint="@color/stroke_color"
             app:layout_constraintBottom_toTopOf="@id/fragment_browser_guide_30h" />
 

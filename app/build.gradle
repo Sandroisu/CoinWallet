@@ -24,6 +24,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "NEW_YORK_TIMES", apikeyProperties['NEW_YORK_TIMES'])//BuildConfig.NEW_YORK_TIMES
+        buildConfigField("String", "COIN_MARKET_CAP", apikeyProperties['COIN_MARKET_CAP'])//BuildConfig.NEW_YORK_TIMES
     }
 
     buildTypes {

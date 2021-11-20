@@ -11,9 +11,12 @@
     <string name="browser_history">History</string>
     <string name="enter_url">Enter Url</string>
     <string name="close">Close</string>
-    <string name="bitcoin">Bitcoin</string>
+    <string name="bitcoin">Bitcoin|1</string>
     <string name="favorites">Favorites</string>
     <string name="crypto_currency_type">Crypto currency type</string>
+    <string name="add_account">Add account</string>
+    <string name="distribution">Distribution</string>
+    <string name="total_value">Total value</string>
 
     <string-array name="crypto_names">
         <item>@string/bitcoin</item>

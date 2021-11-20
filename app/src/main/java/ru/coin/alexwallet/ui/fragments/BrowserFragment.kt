@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -29,6 +30,7 @@ import ru.coin.alexwallet.component.CoinEditText
 import ru.coin.alexwallet.component.CoinEditTextImeBackListener
 import ru.coin.alexwallet.component.OnEndIconClickListener
 import androidx.activity.OnBackPressedCallback
+
 const val ABOUT_BLANK = "about:blank"
 
 class BrowserFragment : Fragment() {
@@ -36,7 +38,6 @@ class BrowserFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentBrowserBinding
     private var anythingToHandleBeforeNavigateUp = false
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,7 +115,7 @@ class BrowserFragment : Fragment() {
             }
         }
         binding.setClickListener {
-            when(it.id){
+            when (it.id) {
                 binding.fragmentBrowserFavoritesCard.id -> findNavController().navigate(R.id.action_browser_to_browser_favorites)
                 binding.fragmentBrowserHistoryCard.id -> findNavController().navigate(R.id.action_browser_to_browser_history)
             }
@@ -141,7 +142,7 @@ class BrowserFragment : Fragment() {
                         binding.fragmentBrowserWebView.goBack()
                         binding.fragmentBrowserEditText.text = Editable.Factory.getInstance()
                             .newEditable(
-                                backForwardList.getItemAtIndex(index-1).url
+                                backForwardList.getItemAtIndex(index - 1).originalUrl
                             )
                     } else {
                         if (anythingToHandleBeforeNavigateUp) {
@@ -191,10 +192,20 @@ class BrowserFragment : Fragment() {
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
-            if (ABOUT_BLANK == url){
+            if (ABOUT_BLANK == url) {
                 view?.clearHistory()
+            } else {
+                super.onPageFinished(view, url)
             }
-            super.onPageFinished(view, url)
+        }
+
+        override fun onReceivedError(
+            view: WebView?,
+            request: WebResourceRequest?,
+            error: WebResourceError?
+        ) {
+            view?.setBackgroundColor(Color.WHITE)
+
         }
 
 

@@ -8,7 +8,6 @@ import android.text.Editable
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.MotionEvent
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import ru.coin.alexwallet.R
 
@@ -24,6 +23,7 @@ class CoinEditText : androidx.appcompat.widget.AppCompatEditText {
     private var endIconClickListener: OnEndIconClickListener? = null
     private var closeRect = Rect()
     private var backgroundRect = Rect()
+    private var realBoundsRect = Rect()
     private var backgroundPaint = Paint()
     private var strokeWidth = 0
     private var viewHeight = 0
@@ -44,6 +44,7 @@ class CoinEditText : androidx.appcompat.widget.AppCompatEditText {
         backgroundPaint.color =
             AppCompatResources.getColorStateList(context, R.color.backgroundColor).defaultColor
         strokeWidth = resources.getDimensionPixelSize(R.dimen.standard_margin)
+        setPadding(strokeWidth, strokeWidth, (iconSize + strokeWidth), strokeWidth)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
@@ -60,6 +61,7 @@ class CoinEditText : androidx.appcompat.widget.AppCompatEditText {
         backgroundPaint.color =
             AppCompatResources.getColorStateList(context, R.color.backgroundColor).defaultColor
         strokeWidth = resources.getDimensionPixelSize(R.dimen.standard_margin)
+        setPadding(strokeWidth, strokeWidth, (iconSize + strokeWidth), strokeWidth)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
@@ -80,6 +82,7 @@ class CoinEditText : androidx.appcompat.widget.AppCompatEditText {
         backgroundPaint.color =
             AppCompatResources.getColorStateList(context, R.color.backgroundColor).defaultColor
         strokeWidth = resources.getDimensionPixelSize(R.dimen.standard_margin)
+        setPadding(strokeWidth, strokeWidth, (iconSize + strokeWidth), strokeWidth)
     }
 
     override fun onKeyPreIme(keyCode: Int, event: KeyEvent?): Boolean {
@@ -106,17 +109,14 @@ class CoinEditText : androidx.appcompat.widget.AppCompatEditText {
         if (canvas == null) {
             return
         }
-        val srect = Rect()
-        getDrawingRect(srect)
-        val leftIcon = width - iconSize - iconMargin
+        getDrawingRect(realBoundsRect)
+        editableText
+        val leftIcon = realBoundsRect.right - iconSize - iconMargin
         val rightIcon = leftIcon + iconSize
-        if (srect.right>rightIcon){
-            Toast.makeText(context, "Ups", Toast.LENGTH_SHORT).show()
-        }
         val topIcon = height / 2 - iconSize / 2
         val bottomIcon = height / 2 + iconSize / 2
-        val leftRect = width - iconSize - iconMargin
-        val rightRect = width - strokeWidth
+        val leftRect = realBoundsRect.right - iconSize - iconMargin
+        val rightRect = realBoundsRect.right - strokeWidth
         val topRect = 0 + strokeWidth
         val bottomRect = height - strokeWidth
         backgroundRect.set(leftRect, topRect, rightRect, bottomRect)
@@ -131,7 +131,11 @@ class CoinEditText : androidx.appcompat.widget.AppCompatEditText {
             closeIcon?.draw(canvas)
             val iconCopy = closeIcon
             iconCopy?.let {
-                closeRect = iconCopy.bounds
+                val leftCloseRect = width - iconSize - iconMargin
+                val rightCloseRect = leftIcon + iconSize
+                val topCloseRect = height / 2 - iconSize / 2
+                val bottomCloseRect = height / 2 + iconSize / 2
+                closeRect.set(leftCloseRect, topCloseRect, rightCloseRect, bottomCloseRect)
             }
         } else {
             searchIcon?.setBounds(

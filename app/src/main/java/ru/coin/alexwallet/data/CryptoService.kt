@@ -5,23 +5,25 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 import ru.coin.alexwallet.BuildConfig
-import ru.coin.alexwallet.data.news.NewsSearchResponse
+import ru.coin.alexwallet.data.crypto.CryptoCurrencyResponse
 
-interface NewsService {
-
-    @GET("svc/search/v2/articlesearch.json")
-    suspend fun searchPhotos(
-        @Query("q") query: String,
-        @Query("page") page: Int,
-        @Query("api-key") clientId: String = BuildConfig.NEW_YORK_TIMES
-    ): NewsSearchResponse
+interface CryptoService {
+    @Headers(
+        "Accept: application/json",
+        "X-CMC_PRO_API_KEY: ${BuildConfig.COIN_MARKET_CAP}"
+    )
+    @GET("v1/cryptocurrency/quotes/latest")
+    suspend fun searchCrypto(
+        @Query("id") id: Int
+    ): CryptoCurrencyResponse
 
     companion object {
-        private const val BASE_URL = "https://api.nytimes.com/"
+        private const val BASE_URL = "https://pro-api.coinmarketcap.com/"
 
-        fun create(): NewsService {
+        fun create(): CryptoService {
             val logger =
                 HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }
 
@@ -34,7 +36,7 @@ interface NewsService {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(NewsService::class.java)
+                .create(CryptoService::class.java)
         }
     }
 }

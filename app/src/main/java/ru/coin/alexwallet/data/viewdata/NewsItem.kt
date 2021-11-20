@@ -1,7 +1,7 @@
 package ru.coin.alexwallet.data.viewdata
 
 import com.google.gson.annotations.SerializedName
-import ru.coin.alexwallet.data.NewsMultimedia
+import ru.coin.alexwallet.data.news.NewsMultimedia
 
 data class NewsItem(
     @field:SerializedName("lead_paragraph") val leadParagraph: String,
