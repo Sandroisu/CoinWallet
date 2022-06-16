@@ -15,7 +15,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import dagger.hilt.android.AndroidEntryPoint
 import ru.slatinin.nytnews.R
-import ru.slatinin.nytnews.databinding.MainActivityBinding
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -32,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         ) as NavHostFragment
         navController = navHostFragment.navController
 
-        // Setup the bottom navigation view with navController
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.main_bottom_navigation)
         bottomNavigationView.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(

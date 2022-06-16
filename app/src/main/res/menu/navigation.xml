@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/news_nav"
-        android:icon="@drawable/ic_news"
-        android:title="@string/news"
+        android:icon="@drawable/ic_recommended"
+        android:title="@string/recommended"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
     <item
@@ -15,8 +15,8 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/wallet_nav"
-        android:icon="@drawable/ic_wallet"
-        android:title="@string/wallet"
+        android:icon="@drawable/ic_newspaper"
+        android:title="@string/news"
         app:showAsAction="always" />
     <item
         android:id="@+id/exchange_nav"

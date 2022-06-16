@@ -37,6 +37,7 @@
             android:background="@color/black"
             app:labelVisibilityMode="unlabeled"
             app:itemIconTint="@drawable/bottom_navigation_icon_color_selector"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:menu="@menu/navigation" />
 
     </FrameLayout>

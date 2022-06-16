@@ -1,7 +1,6 @@
 package ru.slatinin.nytnews.ui.fragments
 
 import android.content.Context
-import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
@@ -12,67 +11,64 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import ru.slatinin.nytnews.adapters.CryptoItemClickCallback
-import ru.slatinin.nytnews.adapters.CryptoNewsAdapter
-import ru.slatinin.nytnews.adapters.NewsAdapter
-import ru.slatinin.nytnews.data.viewdata.CryptoItem
-import ru.slatinin.nytnews.databinding.FragmentNewsBinding
+import ru.slatinin.nytnews.adapters.MostPopularNewsAdapter
+import ru.slatinin.nytnews.databinding.FragmentPopularBinding
 import ru.slatinin.nytnews.utils.ConnectionUtil
 import ru.slatinin.nytnews.viewmodels.NewsViewModel
-import ru.slatinin.nytnews.workers.NYT_DATABASE_WORK_RESULT
-import ru.slatinin.nytnews.workers.UNIQUE_NYT_DATABASE_WORK_TAG
 
-const val DEFAULT_QUERY = "crypto"
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
-
-    private val newsAdapter = NewsAdapter()
+    private val viewedType = "viewed"
+    private val emailedType = "emailed"
+    private val sharedType = "shared"
+    private val mostPopularByViewsAdapter = MostPopularNewsAdapter()
+    private val mostPopularByEmailsAdapter = MostPopularNewsAdapter()
+    private val mostPopularBySharedAdapter = MostPopularNewsAdapter()
     private val viewModel: NewsViewModel by viewModels()
-    private var recommendedNewsJob: Job? = null
-    private lateinit var binding: FragmentNewsBinding
+    private var popularByViewsJob: Job? = null
+    private var popularByEmailsJob: Job? = null
+    private var popularBySharedJob: Job? = null
+    private lateinit var binding: FragmentPopularBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentNewsBinding.inflate(inflater, container, false)
+        binding = FragmentPopularBinding.inflate(inflater, container, false)
         context ?: return binding.root
-        val orientation = activity?.resources?.configuration?.orientation
-        val newsLayoutManager: LinearLayoutManager
-        val cryptoLayoutManager = LinearLayoutManager(context)
-        if (Configuration.ORIENTATION_PORTRAIT == orientation) {
-            newsLayoutManager = object : LinearLayoutManager(context) {
-                override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
-                    lp?.width = (width / 1.5).toInt()
-                    return true
-                }
-            }
-            newsLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-            cryptoLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        } else {
-            newsLayoutManager = LinearLayoutManager(context)
-            newsLayoutManager.orientation = LinearLayoutManager.VERTICAL
-            cryptoLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        }
-        binding.fragmentNewsRecommendedHorizontal.layoutManager = newsLayoutManager
-        binding.fragmentNewsRecommendedHorizontal.adapter = newsAdapter
-        binding.fragmentNewsRecommendedVertical?.adapter = newsAdapter
-        binding.fragmentNewsCryptoCurrencyList.layoutManager = cryptoLayoutManager
+
+
+        binding.popularByViewsList.layoutManager = getLayoutManager()
+        binding.popularByEmailsList.layoutManager = getLayoutManager()
+        binding.popularBySharedList.layoutManager = getLayoutManager()
+
+        binding.popularByViewsList.adapter = mostPopularByViewsAdapter
+        binding.popularByEmailsList.adapter = mostPopularByEmailsAdapter
+        binding.popularBySharedList.adapter = mostPopularBySharedAdapter
         lifecycleScope.launch {
-            newsAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.fragmentNewsProgress.isVisible = loadStates.refresh is LoadState.Loading
-                binding.fragmentNewsError.isVisible = loadStates.refresh is LoadState.Error
+            mostPopularByViewsAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.popularProgress.isVisible = loadStates.refresh is LoadState.Loading
+                binding.popularByViews.isVisible = loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+                binding.popularError.isVisible = loadStates.refresh is LoadState.Error
+            }
+        }
+        lifecycleScope.launch {
+            mostPopularByEmailsAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.popularByEmails.isVisible = loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+            }
+        }
+        lifecycleScope.launch {
+            mostPopularBySharedAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.popularByShares.isVisible = loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
             }
         }
         val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -80,79 +76,50 @@ class NewsFragment : Fragment() {
             cm.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
                     super.onAvailable(network)
-                    search(DEFAULT_QUERY)
+                    search()
                 }
             })
         }
         context?.let {
-            binding.fragmentNewsError.isVisible = ConnectionUtil.isOnline(it)
+            binding.popularError.isVisible = ConnectionUtil.isOnline(it)
             if (ConnectionUtil.isOnline(it)) {
-                search(DEFAULT_QUERY)
+                search()
             }
         }
-        getCryptoItems()
         return binding.root
     }
 
-    private fun getCryptoItems() {
-        context?.let {
-            WorkManager.getInstance(it).getWorkInfosForUniqueWorkLiveData(
-                UNIQUE_NYT_DATABASE_WORK_TAG
-            ).observe(viewLifecycleOwner, Observer { list ->
-                if (list.size > 0) {
-                    val info = list[0]
-                    if (info.state.isFinished) {
-                        val result = info.outputData.getBoolean(NYT_DATABASE_WORK_RESULT, false)
-                        if (result) {
-                            launchCryptoCurrencyQuery()
-                        }
-                    }
-                } else {
-                    launchCryptoCurrencyQuery()
-                }
-            })
+
+    private fun search() {
+
+        popularByViewsJob?.cancel()
+        popularByViewsJob = lifecycleScope.launch {
+            viewModel.loadPopularByViews(viewedType).collectLatest {
+                mostPopularByViewsAdapter.submitData(it)
+            }
         }
-
-    }
-
-    private fun search(query: String) {
-
-        recommendedNewsJob?.cancel()
-        recommendedNewsJob = lifecycleScope.launch {
-            viewModel.searchPictures(query).collectLatest {
-                newsAdapter.submitData(it)
+        popularByEmailsJob?.cancel()
+        popularByEmailsJob = lifecycleScope.launch {
+            viewModel.loadPopularByEmails(emailedType).collectLatest {
+                mostPopularByEmailsAdapter.submitData(it)
+            }
+        }
+        popularBySharedJob?.cancel()
+        popularBySharedJob = lifecycleScope.launch {
+            viewModel.loadPopularByShared(sharedType).collectLatest {
+                mostPopularBySharedAdapter.submitData(it)
             }
         }
     }
 
-    private fun launchCryptoCurrencyQuery() {
-        lifecycleScope.launch {
-            val cryptoItems = ArrayList<CryptoItem>()
-            viewModel.getCryptoCurrencies()?.forEach {
-                val resId = resources.getIdentifier(
-                    it.name,
-                    "drawable",
-                    context?.applicationContext?.packageName
-                )
-                val cryptoItem = CryptoItem(
-                    name = it.name,
-                    dbId = it.cryptoId,
-                    imageResId = resId,
-                    marketPriceInteger = it.marketPriceInteger,
-                    marketPriceDecimal = it.marketPriceDecimal,
-                    walletValueInteger = it.walletValueInteger,
-                    walletValueDecimal = it.walletValueDecimal
-                )
-                cryptoItems.add(cryptoItem)
+    fun getLayoutManager(): LinearLayoutManager {
+        val layoutManager = object : LinearLayoutManager(context) {
+            override fun checkLayoutParams(lp: RecyclerView.LayoutParams?): Boolean {
+                lp?.width = (width / 1.5).toInt()
+                return true
             }
-            val itemClickCallback = object : CryptoItemClickCallback {
-                override fun onItemClick(name: String) {
-                    search(name)
-                }
-            }
-            binding.fragmentNewsCryptoCurrencyList.adapter =
-                CryptoNewsAdapter(cryptoItems, itemClickCallback)
         }
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        return layoutManager
     }
-
 }

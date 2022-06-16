@@ -4,9 +4,9 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/news_nav">
 
-    <include app:graph="@navigation/news_nav"/>
+    <include app:graph="@navigation/popular_nav"/>
     <include app:graph="@navigation/browser_nav"/>
-    <include app:graph="@navigation/wallet_nav"/>
+    <include app:graph="@navigation/news_nav"/>
     <include app:graph="@navigation/exchange_nav"/>
     <include app:graph="@navigation/settings_nav"/>
 

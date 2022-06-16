@@ -10,8 +10,8 @@
             name="clickListener"
             type="android.view.View.OnClickListener"/>
         <variable
-            name="news"
-            type="ru.slatinin.nytnews.data.viewdata.NewsItem"/>
+            name="mostPopularNews"
+            type="ru.slatinin.nytnews.data.news.MostPopularResult"/>
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
                 android:id="@+id/plant_photo"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                app:imageFromUrl="@{news.multimedia}"
+                app:imageFromUrl="@{mostPopularNews.multimedia}"
                 android:onClick="@{clickListener}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
-                android:text="@{news.topic}"
+                android:text="@{mostPopularNews.abstract}"
                 android:maxLines="3"
                 android:textSize="14sp"
                 android:ellipsize="end"

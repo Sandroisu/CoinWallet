@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_margin"
                 android:layout_marginTop="@dimen/standard_margin"
-                android:text="@string/wallet"
+                android:text="@string/news"
                 android:textSize="@dimen/screen_title_size"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/fragment_wallet_diagram"

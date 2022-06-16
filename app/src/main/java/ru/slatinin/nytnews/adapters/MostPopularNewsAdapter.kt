@@ -8,10 +8,11 @@ import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.slatinin.nytnews.data.viewdata.NewsItem
+import ru.slatinin.nytnews.data.news.MostPopularResult
 import ru.slatinin.nytnews.databinding.NewsListItemBinding
 
-class NewsAdapter : PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(NewsDiffCallback()) {
+class MostPopularNewsAdapter :
+    PagingDataAdapter<MostPopularResult, RecyclerView.ViewHolder>(NewsDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
@@ -33,29 +34,32 @@ class NewsAdapter : PagingDataAdapter<NewsItem, RecyclerView.ViewHolder>(NewsDif
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
-                binding.news?.let { news ->
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(news.newsUrl))
+                binding.mostPopularNews?.let { mostPopularItem ->
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mostPopularItem.url))
                     ContextCompat.startActivity(binding.root.context, intent, null)
                 }
             }
         }
 
-        fun bind(item: NewsItem?) {
+        fun bind(item: MostPopularResult?) {
             binding.apply {
-                news = item
+                mostPopularNews = item
                 executePendingBindings()
             }
         }
     }
 
-    private class NewsDiffCallback : DiffUtil.ItemCallback<NewsItem>() {
+    private class NewsDiffCallback : DiffUtil.ItemCallback<MostPopularResult>() {
 
-        override fun areItemsTheSame(old: NewsItem, aNew: NewsItem): Boolean {
+        override fun areItemsTheSame(old: MostPopularResult, aNew: MostPopularResult): Boolean {
 
-            return old.leadParagraph == aNew.leadParagraph
+            return old.abstract == aNew.abstract
         }
 
-        override fun areContentsTheSame(old: NewsItem, aNew: NewsItem): Boolean {
+        override fun areContentsTheSame(
+            old: MostPopularResult,
+            aNew: MostPopularResult
+        ): Boolean {
             return old == aNew
         }
     }

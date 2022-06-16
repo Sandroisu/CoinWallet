@@ -20,6 +20,10 @@
     <string name="address_book">Address book</string>
     <string name="buy_crypto">Buy crypto</string>
     <string name="light_mode">Light mode</string>
+    <string name="most_popular_news">Most popular</string>
+    <string name="by_news">By news</string>
+    <string name="by_emails">By mails</string>
+    <string name="by_shares">By shares</string>
 
     <string-array name="crypto_names">
         <item>@string/bitcoin</item>

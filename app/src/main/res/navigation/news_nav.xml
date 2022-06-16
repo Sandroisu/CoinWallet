@@ -4,12 +4,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/news_nav"
-    app:startDestination="@id/news_fragment">
+    android:id="@+id/wallet_nav"
+    app:startDestination="@id/wallet_fragment">
 
     <fragment
-        android:id="@+id/news_fragment"
-        android:name="ru.slatinin.nytnews.ui.fragments.NewsFragment"
+        android:id="@+id/wallet_fragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.WalletFragment"
         android:label="@string/news"
-        tools:layout="@layout/fragment_news"/>
+        tools:layout="@layout/fragment_wallet"/>
+
 </navigation>

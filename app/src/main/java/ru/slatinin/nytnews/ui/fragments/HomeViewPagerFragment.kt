@@ -30,9 +30,9 @@ class HomeViewPagerFragment : Fragment() {
 
     private fun getTabIcon(position: Int): Int {
         return when (position) {
-            NEWS_INDEX -> R.drawable.ic_news
+            RECOMMENDED_INDEX -> R.drawable.ic_recommended
             BROWSER_INDEX -> R.drawable.ic_browser
-            WALLET_INDEX -> R.drawable.ic_wallet
+            NEWS_INDEX -> R.drawable.ic_newspaper
             EXCHANGE_INDEX -> R.drawable.ic_exchange
             SETTINGS_INDEX -> R.drawable.ic_settings
             else -> throw IndexOutOfBoundsException()

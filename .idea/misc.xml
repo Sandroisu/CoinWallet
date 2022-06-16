@@ -54,8 +54,21 @@
         <entry key="..\:/Users/alex/AndroidStudioProjects/CoinWallet/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_arrow_forward.xml" value="0.1415" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_money.xml" value="0.1415" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_news.xml" value="0.1355" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_phone_list.xml" value="0.1415" />
-        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_news.xml" value="0.10733695652173914" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_plus.xml" value="0.1355" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_search.xml" value="0.1355" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_settings.xml" value="0.1355" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_star.xml" value="0.1355" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_wallet.xml" value="0.1355" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout-land/fragment_news.xml" value="0.15961199294532627" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout-land/news_list_item.xml" value="0.15961199294532627" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_news.xml" value="0.25" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_popular.xml" value="0.22" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_wallet.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/main_activity.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/news_list_item.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/menu/navigation.xml" value="0.18854166666666666" />
       </map>
     </option>
   </component>
