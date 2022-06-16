@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/exchange_fragment"
-        android:name="ru.coin.alexwallet.ui.fragments.ExchangeFragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.ExchangeFragment"
         android:label="@string/exchange"
         tools:layout="@layout/fragment_exchange"/>
 

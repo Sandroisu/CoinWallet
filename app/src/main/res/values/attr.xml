@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IconTextArrow">
+        <attr name="startIcon" format="integer|reference" />
+        <attr name="middleText" format="string|reference" />
+    </declare-styleable>
+</resources>

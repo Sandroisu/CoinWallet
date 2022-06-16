@@ -8,7 +8,7 @@
 
         <fragment
         android:id="@+id/browser_fragment"
-        android:name="ru.coin.alexwallet.ui.fragments.BrowserFragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.BrowserFragment"
         android:label="@string/browser"
         tools:layout="@layout/fragment_browser">
         <action
@@ -30,13 +30,13 @@
 
     <fragment
         android:id="@+id/browser_history_fragment"
-        android:name="ru.coin.alexwallet.ui.fragments.BrowserHistoryFragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.BrowserHistoryFragment"
         android:label="@string/browser_history"
         tools:layout="@layout/fragment_browser_history" />
 
     <fragment
         android:id="@+id/browser_favorites_fragment"
-        android:name="ru.coin.alexwallet.ui.fragments.BrowserFavorites"
+        android:name="ru.slatinin.nytnews.ui.fragments.BrowserFavorites"
         android:label="@string/favorites"
         tools:layout="@layout/fragment_browser_favorites" />
 

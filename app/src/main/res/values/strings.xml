@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CoinWallet</string>
+    <string name="app_name">NYTNews</string>
     <string name="splash_fragment">Hello!</string>
     <string name="wallet">Wallet</string>
     <string name="news">News</string>
@@ -17,6 +17,9 @@
     <string name="add_account">Add account</string>
     <string name="distribution">Distribution</string>
     <string name="total_value">Total value</string>
+    <string name="address_book">Address book</string>
+    <string name="buy_crypto">Buy crypto</string>
+    <string name="light_mode">Light mode</string>
 
     <string-array name="crypto_names">
         <item>@string/bitcoin</item>

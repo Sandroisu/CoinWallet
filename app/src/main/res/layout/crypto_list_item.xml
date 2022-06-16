@@ -9,7 +9,7 @@
 
         <variable
             name="crypto"
-            type="ru.coin.alexwallet.data.viewdata.CryptoItem" />
+            type="ru.slatinin.nytnews.data.viewdata.CryptoItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

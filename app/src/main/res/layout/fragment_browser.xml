@@ -41,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <ru.coin.alexwallet.component.CoinEditText
+        <ru.slatinin.nytnews.component.NYTEditText
             android:id="@+id/fragment_browser_edit_text"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"

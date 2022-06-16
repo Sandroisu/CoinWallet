@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/news_fragment"
-        android:name="ru.coin.alexwallet.ui.fragments.NewsFragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.NewsFragment"
         android:label="@string/news"
         tools:layout="@layout/fragment_news"/>
 </navigation>

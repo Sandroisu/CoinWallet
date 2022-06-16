@@ -11,7 +11,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="news"
-            type="ru.coin.alexwallet.data.viewdata.NewsItem"/>
+            type="ru.slatinin.nytnews.data.viewdata.NewsItem"/>
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
