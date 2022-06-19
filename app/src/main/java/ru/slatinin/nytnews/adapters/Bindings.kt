@@ -8,6 +8,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import ru.slatinin.nytnews.R
+import ru.slatinin.nytnews.data.RssReader
 import ru.slatinin.nytnews.data.news.MostPopularMultimedia
 import ru.slatinin.nytnews.data.news.STANDARD_THUMB_CONST
 
@@ -32,5 +33,27 @@ fun bindImageFromUrl(view: ImageView, multimedia: List<MostPopularMultimedia>) {
         .transform(CenterInside(), RoundedCorners(radius))
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(view)
+
+}
+
+@BindingAdapter("imageFromRssUrl")
+fun bindImageFromRss(view: ImageView, rssItem: RssReader.Item) {
+    if (rssItem.imageUrl == null){
+        view.setImageResource(R.drawable.ic_recommended)
+        return
+    }
+    rssItem.imageUrl?.let {
+        if (it.isEmpty()) {
+            view.setImageResource(R.drawable.ic_recommended)
+            return
+        }
+        val radius = view.context.resources.getDimensionPixelSize(R.dimen.image_corner_radius)
+        Glide.with(view.context)
+            .load(it)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .transform(CenterInside(), RoundedCorners(radius))
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(view)
+    }
 
 }

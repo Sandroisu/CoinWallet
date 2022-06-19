@@ -20,6 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.slatinin.nytnews.adapters.MostPopularNewsAdapter
+import ru.slatinin.nytnews.adapters.RssAdapter
 import ru.slatinin.nytnews.databinding.FragmentPopularBinding
 import ru.slatinin.nytnews.utils.ConnectionUtil
 import ru.slatinin.nytnews.viewmodels.NewsViewModel
@@ -27,12 +28,9 @@ import ru.slatinin.nytnews.viewmodels.NewsViewModel
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
-    private val viewedType = "viewed"
-    private val emailedType = "emailed"
-    private val sharedType = "shared"
     private val mostPopularByViewsAdapter = MostPopularNewsAdapter()
-    private val mostPopularByEmailsAdapter = MostPopularNewsAdapter()
-    private val mostPopularBySharedAdapter = MostPopularNewsAdapter()
+    private val euroRssAdapter = RssAdapter()
+    private val rtRssAdapter = RssAdapter()
     private val viewModel: NewsViewModel by viewModels()
     private var popularByViewsJob: Job? = null
     private var popularByEmailsJob: Job? = null
@@ -52,23 +50,26 @@ class NewsFragment : Fragment() {
         binding.popularBySharedList.layoutManager = getLayoutManager()
 
         binding.popularByViewsList.adapter = mostPopularByViewsAdapter
-        binding.popularByEmailsList.adapter = mostPopularByEmailsAdapter
-        binding.popularBySharedList.adapter = mostPopularBySharedAdapter
+        binding.popularByEmailsList.adapter = euroRssAdapter
+        binding.popularBySharedList.adapter = rtRssAdapter
         lifecycleScope.launch {
             mostPopularByViewsAdapter.loadStateFlow.collectLatest { loadStates ->
                 binding.popularProgress.isVisible = loadStates.refresh is LoadState.Loading
-                binding.popularByViews.isVisible = loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+                binding.popularByViews.isVisible =
+                    loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
                 binding.popularError.isVisible = loadStates.refresh is LoadState.Error
             }
         }
         lifecycleScope.launch {
-            mostPopularByEmailsAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.popularByEmails.isVisible = loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+            euroRssAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.popularByEmails.isVisible =
+                    loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
             }
         }
         lifecycleScope.launch {
-            mostPopularBySharedAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.popularByShares.isVisible = loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+            rtRssAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.popularByShares.isVisible =
+                    loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
             }
         }
         val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -86,6 +87,7 @@ class NewsFragment : Fragment() {
                 search()
             }
         }
+
         return binding.root
     }
 
@@ -94,20 +96,21 @@ class NewsFragment : Fragment() {
 
         popularByViewsJob?.cancel()
         popularByViewsJob = lifecycleScope.launch {
-            viewModel.loadPopularByViews(viewedType).collectLatest {
+            viewModel.loadPopularByViews("viewed").collectLatest {
                 mostPopularByViewsAdapter.submitData(it)
             }
         }
         popularByEmailsJob?.cancel()
         popularByEmailsJob = lifecycleScope.launch {
-            viewModel.loadPopularByEmails(emailedType).collectLatest {
-                mostPopularByEmailsAdapter.submitData(it)
-            }
+            viewModel.loadEuroRssFeed("https://www.euronews.com/rss?format=mrss&level=theme&name=news")
+                .collectLatest {
+                    euroRssAdapter.submitData(it)
+                }
         }
         popularBySharedJob?.cancel()
         popularBySharedJob = lifecycleScope.launch {
-            viewModel.loadPopularByShared(sharedType).collectLatest {
-                mostPopularBySharedAdapter.submitData(it)
+            viewModel.loadRtRssFeed("https://www.rt.com/rss/").collectLatest {
+                rtRssAdapter.submitData(it)
             }
         }
     }

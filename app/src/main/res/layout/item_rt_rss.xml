@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="rssItem"
+            type="ru.slatinin.nytnews.data.RssReader.Item" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/rt_rss_photo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:onClick="@{clickListener}"
+            app:imageFromRssUrl="@{rssItem}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/rt_rss_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:padding="12dp"
+            android:text="@{rssItem.title}"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/rt_rss_photo"
+            tools:text="Some News" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
