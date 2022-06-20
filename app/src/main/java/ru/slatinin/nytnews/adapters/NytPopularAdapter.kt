@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.slatinin.nytnews.data.news.MostPopularResult
 import ru.slatinin.nytnews.databinding.NewsListItemBinding
 
-class MostPopularNewsAdapter :
+class NytPopularAdapter :
     PagingDataAdapter<MostPopularResult, RecyclerView.ViewHolder>(NewsDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {

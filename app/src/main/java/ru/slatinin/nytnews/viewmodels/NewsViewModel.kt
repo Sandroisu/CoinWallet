@@ -51,4 +51,10 @@ class NewsViewModel @Inject constructor(
             euroRssItemResult as Flow<PagingData<RssReader.Item>>
         }
     }
+
+    fun nullAllResults() {
+        rtRssItemResult = null
+        euroRssItemResult = null
+        loadViewsResult = null
+    }
 }

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_margin"
             android:layout_marginBottom="@dimen/standard_margin"
-            tools:context=".ui.fragments.NewsFragment">
+            tools:context=".ui.fragments.TrendingFragment">
 
             <TextView
                 android:id="@+id/fragment_wallet_title"

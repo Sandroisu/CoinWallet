@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/news_fragment"
-        android:name="ru.slatinin.nytnews.ui.fragments.NewsFragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.TrendingFragment"
         android:label="@string/recommended"
-        tools:layout="@layout/fragment_popular"/>
+        tools:layout="@layout/fragment_trending"/>
 </navigation>

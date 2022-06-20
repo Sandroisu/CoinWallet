@@ -22,9 +22,20 @@ class RssPagingSource(
         val page = params.key ?: STARTING_PAGE_INDEX
         return withContext(Dispatchers.IO) {
             try {
-                rssReader.RssParser(url)
+                var lastItem = 10;
+                var firstItem = 0
+                if (rssReader.items.size == 0) {
+                    rssReader.RssParser(url)
+                }
+                if (rssReader.items.size > lastItem * page) {
+                    firstItem = lastItem * page - lastItem;
+                    lastItem *= page
+
+                } else {
+                    lastItem = rssReader.items.size - 1
+                }
                 val data = ArrayList<RssReader.Item>()
-                for (i in 0 until 10) {
+                for (i in firstItem until lastItem) {
                     data.add(rssReader.getItem(i))
                 }
                 LoadResult.Page(

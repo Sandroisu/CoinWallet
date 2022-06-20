@@ -19,7 +19,7 @@ class RssReader : DefaultHandler() {
     private var inImage = false
     private var inItem = false
 
-    private val items = ArrayList<Item>()
+    val items = ArrayList<Item>()
     private val channel = Channel()
 
     private var lastItem: Item? = null
