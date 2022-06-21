@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.slatinin.nytnews.data.RecommendationService
+import ru.slatinin.nytnews.data.NytPopularService
 import ru.slatinin.nytnews.data.RssReader
 import javax.inject.Singleton
 
@@ -13,8 +13,8 @@ import javax.inject.Singleton
 class NewsModule {
     @Singleton
     @Provides
-    fun provideNewsService(): RecommendationService {
-        return RecommendationService.create()
+    fun provideNewsService(): NytPopularService {
+        return NytPopularService.create()
     }
 
     @Provides

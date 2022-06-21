@@ -8,7 +8,7 @@ private const val STARTING_PAGE_INDEX = 1
 private const val THREE_HOURS = 1000 * 60 * 60 * 3
 
 class RecommendationsPagingSource(
-    private val service: RecommendationService,
+    private val service: NytPopularService,
     private val type: String,
 ) : PagingSource<Int, MostPopularResult>() {
 
@@ -16,7 +16,20 @@ class RecommendationsPagingSource(
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
             val response = service.loadNews(type = type)
-            val newsItems = response.results
+            var newsItems = response.results
+            if (page == STARTING_PAGE_INDEX) {
+                if (newsItems.size >= 10) {
+                    newsItems = response.results.subList(0, 10)
+                }
+            } else {
+                if (response.results.size > 10) {
+                    var maxLength = response.results.size - 1
+                    if (response.results.size >= 20) {
+                        maxLength = 20
+                    }
+                    newsItems = response.results.subList(10, maxLength)
+                }
+            }
             LoadResult.Page(
                 data = newsItems,
                 nextKey = if (page > STARTING_PAGE_INDEX) null else page + 1,

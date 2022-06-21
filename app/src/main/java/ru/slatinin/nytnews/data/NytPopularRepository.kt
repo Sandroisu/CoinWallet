@@ -8,8 +8,8 @@ import javax.inject.Singleton
 
 
 @Singleton
-class RecommendationsRepository @Inject constructor(
-    private val newsService: RecommendationService
+class NytPopularRepository @Inject constructor(
+    private val newsService: NytPopularService
 ) {
 
     fun loadPopularResultStream(type: String): Flow<PagingData<MostPopularResult>> {

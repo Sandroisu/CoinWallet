@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import ru.slatinin.nytnews.data.RecommendationsRepository
+import ru.slatinin.nytnews.data.NytPopularRepository
 import ru.slatinin.nytnews.data.RssRepository
 import ru.slatinin.nytnews.data.news.MostPopularResult
 import ru.slatinin.nytnews.data.RssReader
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val repository: RecommendationsRepository,
+    private val repository: NytPopularRepository,
     private val rssRepository: RssRepository,
     private val euroRssRepository: RssRepository
 ) : ViewModel() {
