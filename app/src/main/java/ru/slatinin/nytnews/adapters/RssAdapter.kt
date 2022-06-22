@@ -1,20 +1,16 @@
 package ru.slatinin.nytnews.adapters
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.slatinin.nytnews.data.news.MostPopularResult
-import ru.slatinin.nytnews.databinding.NewsListItemBinding
 import ru.slatinin.nytnews.data.RssReader
 import ru.slatinin.nytnews.databinding.ItemRtRssBinding
 
-class RssAdapter :
+class RssAdapter(private val browseLinkCallback: BrowseLinkCallback) :
     PagingDataAdapter<RssReader.Item, RecyclerView.ViewHolder>(RssDiffCallback()) {
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
@@ -27,18 +23,21 @@ class RssAdapter :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            browseLinkCallback
         )
     }
 
     class RtRssViewHolder(
-        private val binding: ItemRtRssBinding
+        private val binding: ItemRtRssBinding,
+        private val browseLinkCallback: BrowseLinkCallback
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
                 binding.rssItem?.let { rssItem ->
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(rssItem.link))
-                    ContextCompat.startActivity(binding.root.context, intent, null)
+                    rssItem.link?.let { link ->
+                        browseLinkCallback.onLoadLink(link)
+                    }
                 }
             }
         }

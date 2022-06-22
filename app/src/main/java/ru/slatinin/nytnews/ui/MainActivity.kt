@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.news_fragment,
+                R.id.trending_fragment,
                 R.id.browser_fragment,
                 R.id.wallet_fragment,
                 R.id.exchange_fragment,

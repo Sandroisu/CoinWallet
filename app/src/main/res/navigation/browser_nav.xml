@@ -6,11 +6,16 @@
     android:id="@+id/browser_nav"
     app:startDestination="@id/browser_fragment">
 
-        <fragment
+    <fragment
         android:id="@+id/browser_fragment"
         android:name="ru.slatinin.nytnews.ui.fragments.BrowserFragment"
         android:label="@string/browser"
         tools:layout="@layout/fragment_browser">
+        <argument
+            android:name="url"
+            android:defaultValue="@null"
+            app:argType="java.lang.String"
+            app:nullable="true" />
         <action
             android:id="@+id/action_browser_to_browser_history"
             app:destination="@id/browser_history_fragment"
@@ -19,13 +24,13 @@
             app:popEnterAnim="@anim/slide_in_bottom"
             app:popExitAnim="@anim/slide_out_bottom" />
 
-            <action
-                android:id="@+id/action_browser_to_browser_favorites"
-                app:destination="@id/browser_favorites_fragment"
-                app:enterAnim="@anim/slide_in_bottom"
-                app:exitAnim="@anim/slide_out_bottom"
-                app:popEnterAnim="@anim/slide_in_bottom"
-                app:popExitAnim="@anim/slide_out_bottom" />
+        <action
+            android:id="@+id/action_browser_to_browser_favorites"
+            app:destination="@id/browser_favorites_fragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_bottom"
+            app:popEnterAnim="@anim/slide_in_bottom"
+            app:popExitAnim="@anim/slide_out_bottom" />
     </fragment>
 
     <fragment

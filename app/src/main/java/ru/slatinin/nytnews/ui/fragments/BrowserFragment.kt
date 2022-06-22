@@ -42,7 +42,7 @@ class BrowserFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -156,6 +156,12 @@ class BrowserFragment : Fragment() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        arguments?.let {
+            val url = BrowserFragmentArgs.fromBundle(it).url
+            url?.let {
+                binding.fragmentBrowserWebView.loadUrl(url)
+            }
+        }
         return binding.root
 
     }

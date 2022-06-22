@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_nav"
+    app:startDestination="@id/trending_fragment">
+    <include app:graph="@navigation/browser_nav" />
+    <fragment
+        android:id="@+id/trending_fragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.TrendingFragment"
+        android:label="@string/recommended"
+        tools:layout="@layout/fragment_trending">
+        <action
+            android:id="@+id/trending_to_browser"
+            app:destination="@id/browser_fragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_bottom"
+            app:popEnterAnim="@anim/slide_in_bottom"
+            app:popExitAnim="@anim/slide_out_bottom">
+            <argument
+                android:name="url"
+                android:defaultValue="@null"
+                app:argType="java.lang.String"
+                app:nullable="true" />
+        </action>
+
+    </fragment>
+</navigation>

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ru.slatinin.nytnews.adapters.BrowseLinkCallback
 import ru.slatinin.nytnews.adapters.NytPopularAdapter
 import ru.slatinin.nytnews.adapters.RssAdapter
 import ru.slatinin.nytnews.databinding.FragmentTrendingBinding
@@ -29,8 +31,8 @@ import ru.slatinin.nytnews.viewmodels.NewsViewModel
 @AndroidEntryPoint
 class TrendingFragment : Fragment() {
     private val nytAdapter = NytPopularAdapter()
-    private val euroRssAdapter = RssAdapter()
-    private val rtRssAdapter = RssAdapter()
+    private var euroRssAdapter: RssAdapter? = null
+    private var rtRssAdapter: RssAdapter? = null
     private var nytJob: Job? = null
     private var euronewsJob: Job? = null
     private var rtJob: Job? = null
@@ -44,7 +46,20 @@ class TrendingFragment : Fragment() {
         binding = FragmentTrendingBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
-
+        if (euroRssAdapter == null) {
+            euroRssAdapter = RssAdapter(object : BrowseLinkCallback {
+                override fun onLoadLink(url: String) {
+                    findNavController().navigate(TrendingFragmentDirections.trendingToBrowser(url))
+                }
+            })
+        }
+        if (rtRssAdapter == null) {
+            rtRssAdapter = RssAdapter(object : BrowseLinkCallback {
+                override fun onLoadLink(url: String) {
+                    findNavController().navigate(TrendingFragmentDirections.trendingToBrowser(url))
+                }
+            })
+        }
         binding.nytList.layoutManager = getLayoutManager()
         binding.euronewsList.layoutManager = getLayoutManager()
         binding.rtList.layoutManager = getLayoutManager()
@@ -61,15 +76,19 @@ class TrendingFragment : Fragment() {
             }
         }
         lifecycleScope.launch {
-            euroRssAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.popularByEmails.isVisible =
-                    loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+            euroRssAdapter?.let {
+                it.loadStateFlow.collectLatest { loadStates ->
+                    binding.popularByEmails.isVisible =
+                        loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+                }
             }
         }
         lifecycleScope.launch {
-            rtRssAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.popularByShares.isVisible =
-                    loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+            rtRssAdapter?.let {
+                it.loadStateFlow.collectLatest { loadStates ->
+                    binding.popularByShares.isVisible =
+                        loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+                }
             }
         }
         val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -116,13 +135,13 @@ class TrendingFragment : Fragment() {
         euronewsJob = lifecycleScope.launch {
             viewModel.loadEuroRssFeed("https://www.euronews.com/rss?format=mrss&level=theme&name=news")
                 .collectLatest {
-                    euroRssAdapter.submitData(it)
+                    euroRssAdapter?.submitData(it)
                 }
         }
         rtJob?.cancel()
         rtJob = lifecycleScope.launch {
             viewModel.loadRtRssFeed("https://www.rt.com/rss/").collectLatest {
-                rtRssAdapter.submitData(it)
+                rtRssAdapter?.submitData(it)
             }
         }
     }
