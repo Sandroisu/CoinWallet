@@ -156,10 +156,12 @@ class BrowserFragment : Fragment() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-        arguments?.let {
-            val url = BrowserFragmentArgs.fromBundle(it).url
-            url?.let {
-                binding.fragmentBrowserWebView.loadUrl(url)
+        arguments?.let{ args ->
+            val url = BrowserFragmentArgs.fromBundle(args).url
+            url?.let { urlStr ->
+                binding.fragmentBrowserEditText.setText(urlStr)
+                binding.fragmentBrowserEditText.requestFocus()
+                binding.fragmentBrowserWebView.loadUrl(urlStr)
             }
         }
         return binding.root
