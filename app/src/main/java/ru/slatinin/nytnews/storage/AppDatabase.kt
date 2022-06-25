@@ -16,14 +16,13 @@ import ru.slatinin.nytnews.workers.NYTDatabaseWorker
 import ru.slatinin.nytnews.workers.UNIQUE_NYT_DATABASE_WORK_TAG
 
 @Database(
-    entities = [Users::class, News::class, CryptoCurrency::class],
+    entities = [Users::class, News::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun newsDao(): NewsDao
-    abstract fun cryptoCurrencyDao(): CryptoCurrencyDao
 
 
     companion object {

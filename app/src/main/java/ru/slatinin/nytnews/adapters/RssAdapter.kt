@@ -57,6 +57,7 @@ class RssAdapter(private val browseLinkCallback: BrowseLinkCallback) :
             return old.title == aNew.title
         }
 
+        @Suppress("ReplaceCallWithBinaryOperator")
         override fun areContentsTheSame(
             old: RssReader.Item,
             aNew: RssReader.Item

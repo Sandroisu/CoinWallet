@@ -24,38 +24,9 @@ class WalletFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentWalletBinding.inflate(inflater, container, false)
-        launchCryptoCurrencyQuery()
         return binding.root
     }
 
-    private fun launchCryptoCurrencyQuery() {
-        lifecycleScope.launch {
-            val cryptoItems = ArrayList<CryptoItem>()
-            viewModel.getCryptoCurrencies()?.forEach {
-                val resId = resources.getIdentifier(
-                    it.name,
-                    "drawable",
-                    context?.applicationContext?.packageName
-                )
-                val cryptoItem = CryptoItem(
-                    name = it.name,
-                    dbId = it.cryptoId,
-                    imageResId = resId,
-                    marketPriceInteger = it.marketPriceInteger,
-                    marketPriceDecimal = it.marketPriceDecimal,
-                    walletValueInteger = it.walletValueInteger,
-                    walletValueDecimal = it.walletValueDecimal
-                )
-                cryptoItems.add(cryptoItem)
-            }
-            val itemClickCallback = object : CryptoWalletItemClickCallback {
-                override fun onWalletItemClick(name: String) {
 
-                }
-            }
-            binding.fragmentWalletCryptoCurrencyList.adapter =
-                CryptoWalletAdapter(cryptoItems, itemClickCallback)
-        }
-    }
 
 }
