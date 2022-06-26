@@ -54,7 +54,6 @@ abstract class AppDatabase : RoomDatabase() {
                     }
                 })
                 .build()
-            db.query("select 1", null)
             return db
         }
     }

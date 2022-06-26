@@ -13,7 +13,6 @@ import ru.slatinin.nytnews.utils.IntUtil
 import java.util.*
 
 const val NYT_NAMES = "ru.slatinin.nytnews.workers.NYT_NAMES"
-const val TEST_USER = "ru.slatinin.nytnews.workersTEST_USER"
 const val UNIQUE_NYT_DATABASE_WORK_TAG =
     "ru.slatinin.nytnews.workers.UNIQUE_NYT_DATABASE_WORK_TAG"
 const val NYT_DATABASE_WORK_RESULT = "ru.slatinin.nytnews.workers.NYT_DATABASE_WORK_RESULT"
