@@ -17,7 +17,7 @@ class MainViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) 
         RECOMMENDED_INDEX to { TrendingFragment() },
         BROWSER_INDEX to { BrowserFragment() },
         NEWS_INDEX to { WalletFragment() },
-        EXCHANGE_INDEX to { ExchangeFragment() },
+        EXCHANGE_INDEX to { SectionsFragment() },
         SETTINGS_INDEX to { SettingsFragment() }
     )
 

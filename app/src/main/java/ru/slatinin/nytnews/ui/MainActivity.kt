@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.trending_fragment,
                 R.id.browser_fragment,
                 R.id.wallet_fragment,
-                R.id.exchange_fragment,
+                R.id.sections_fragment,
                 R.id.settings_fragment
             )
         )

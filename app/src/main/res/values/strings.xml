@@ -24,8 +24,12 @@
     <string name="nyt_us">NewYorkTimes US</string>
     <string name="euronews">Euronews</string>
     <string name="rt_russia">RT Russia</string>
+    <string name="sections">Sections</string>
+    <string name="world_news">World News</string>
+    <string name="sport">Sport</string>
+    <string name="Business">Business</string>
 
-    <string-array name="crypto_names">
-        <item>@string/bitcoin</item>
+    <string-array name="section_names">
+        <item></item>
     </string-array>
 </resources>

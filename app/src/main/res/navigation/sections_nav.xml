@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/exchange_nav"
-    app:startDestination="@id/exchange_fragment">
+    app:startDestination="@id/sections_fragment">
 
     <fragment
-        android:id="@+id/exchange_fragment"
-        android:name="ru.slatinin.nytnews.ui.fragments.ExchangeFragment"
+        android:id="@+id/sections_fragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.SectionsFragment"
         android:label="@string/exchange"
-        tools:layout="@layout/fragment_exchange"/>
+        tools:layout="@layout/fragment_sections"/>
 
 </navigation>

@@ -7,8 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ru.slatinin.nytnews.R
+import ru.slatinin.nytnews.databinding.FragmentSectionsBinding
 
-class ExchangeFragment : Fragment() {
+class SectionsFragment : Fragment() {
+
+    private var _binding: FragmentSectionsBinding? = null
+
+    private val binding get() = _binding!!
 
     private lateinit var viewModel: MainViewModel
 
@@ -21,6 +26,12 @@ class ExchangeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_exchange, container, false)
+        _binding = FragmentSectionsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

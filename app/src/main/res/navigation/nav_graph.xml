@@ -7,7 +7,7 @@
     <include app:graph="@navigation/trending_nav"/>
     <include app:graph="@navigation/browser_nav"/>
     <include app:graph="@navigation/news_nav"/>
-    <include app:graph="@navigation/exchange_nav"/>
+    <include app:graph="@navigation/sections_nav"/>
     <include app:graph="@navigation/settings_nav"/>
 
 </navigation>
