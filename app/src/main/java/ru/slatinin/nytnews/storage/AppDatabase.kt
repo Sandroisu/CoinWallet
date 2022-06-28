@@ -44,7 +44,7 @@ abstract class AppDatabase : RoomDatabase() {
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        val cryptoNames = context.resources.getStringArray(R.array.crypto_names)
+                        val cryptoNames = context.resources.getStringArray(R.array.section_names)
                         val request = OneTimeWorkRequestBuilder<NYTDatabaseWorker>()
                             .setInputData(workDataOf(NYT_NAMES to cryptoNames))
                             .build()

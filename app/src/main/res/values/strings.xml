@@ -26,10 +26,18 @@
     <string name="rt_russia">RT Russia</string>
     <string name="sections">Sections</string>
     <string name="world_news">World News</string>
+    <string name="business">Business</string>
+    <string name="russia_europe_usa">Russia/Europe/USA</string>
     <string name="sport">Sport</string>
-    <string name="Business">Business</string>
+    <string name="op_ed">Op-ed</string>
+    <string name="games">Games</string>
 
     <string-array name="section_names">
-        <item></item>
+        <item>@string/world_news</item>
+        <item>@string/russia_europe_usa</item>
+        <item>@string/sport</item>
+        <item>@string/business</item>
+        <item>@string/op_ed</item>
+        <item>@string/games</item>
     </string-array>
 </resources>
