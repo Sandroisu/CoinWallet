@@ -9,7 +9,26 @@
     <fragment
         android:id="@+id/sections_fragment"
         android:name="ru.slatinin.nytnews.ui.fragments.SectionsFragment"
-        android:label="@string/exchange"
-        tools:layout="@layout/fragment_sections"/>
+        android:label="@string/sections"
+        tools:layout="@layout/fragment_sections">
+        <action
+            android:id="@+id/sections_to_section"
+            app:destination="@id/section_fragment" >
+            <argument
+                android:name="sectionName"
+                app:argType="string" />
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/section_fragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.SectionFragment"
+        android:label="@string/section"
+        tools:layout="@layout/fragment_section">
+        <argument
+            android:name="sectionName"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

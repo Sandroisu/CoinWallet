@@ -31,6 +31,7 @@
     <string name="sport">Sport</string>
     <string name="op_ed">Op-ed</string>
     <string name="games">Games</string>
+    <string name="section">Section</string>
 
     <string-array name="section_names">
         <item>@string/world_news</item>
