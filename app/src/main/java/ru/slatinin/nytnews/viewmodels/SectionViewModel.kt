@@ -10,6 +10,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SectionViewModel @Inject constructor(savedStateHandle: SavedStateHandle) :
     ViewModel() {
-    val section : String = SectionFragmentArgs.fromSavedStateHandle(savedStateHandle).toString()
+    val section : String = SectionFragmentArgs.fromSavedStateHandle(savedStateHandle).sectionName
 
 }
