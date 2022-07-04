@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.slatinin.nytnews.databinding.FragmentSectionBinding
 import ru.slatinin.nytnews.viewmodels.SectionViewModel
@@ -24,7 +25,8 @@ class SectionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSectionBinding.inflate(inflater, container, false)
-        Toast.makeText(requireContext(), viewModel.section, Toast.LENGTH_SHORT).show()
+        binding.sectionToolbar.title = viewModel.section
+        binding.sectionToolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         return binding.root
     }
 
