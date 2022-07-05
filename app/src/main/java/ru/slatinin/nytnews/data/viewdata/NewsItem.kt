@@ -1,7 +1,7 @@
 package ru.slatinin.nytnews.data.viewdata
 
 import com.google.gson.annotations.SerializedName
-import ru.slatinin.nytnews.data.news.MostPopularMultimedia
+import ru.slatinin.nytnews.data.nytmostpopular.MostPopularMultimedia
 
 data class NewsItem(
     @field:SerializedName("lead_paragraph") val leadParagraph: String,

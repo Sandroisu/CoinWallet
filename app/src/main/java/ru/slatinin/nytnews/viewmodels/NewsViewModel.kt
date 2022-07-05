@@ -6,15 +6,15 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import ru.slatinin.nytnews.data.NytPopularRepository
+import ru.slatinin.nytnews.data.nytmostpopular.NytMostPopularRepository
 import ru.slatinin.nytnews.data.RssRepository
-import ru.slatinin.nytnews.data.news.MostPopularResult
+import ru.slatinin.nytnews.data.nytmostpopular.MostPopularResult
 import ru.slatinin.nytnews.data.RssReader
 import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val repository: NytPopularRepository,
+    private val repositoryMost: NytMostPopularRepository,
     private val rssRepository: RssRepository,
     private val euroRssRepository: RssRepository
 ) : ViewModel() {
@@ -24,7 +24,7 @@ class NewsViewModel @Inject constructor(
 
     fun loadPopularByViews(type: String): Flow<PagingData<MostPopularResult>> {
         return if (loadViewsResult == null) {
-            val newResult = repository.loadPopularResultStream(type).cachedIn(viewModelScope)
+            val newResult = repositoryMost.loadPopularResultStream(type).cachedIn(viewModelScope)
             loadViewsResult = newResult
             newResult
         } else {

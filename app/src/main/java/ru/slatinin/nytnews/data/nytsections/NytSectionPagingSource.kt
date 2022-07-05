@@ -1,21 +1,18 @@
-package ru.slatinin.nytnews.data
+package ru.slatinin.nytnews.data.nytsections
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import ru.slatinin.nytnews.data.news.MostPopularResult
+import ru.slatinin.nytnews.data.nytsections.SectionResult
 
 private const val STARTING_PAGE_INDEX = 1
-private const val THREE_HOURS = 1000 * 60 * 60 * 3
+class NytSectionPagingSource (private val nytSectionsService: NytSectionService,
+                              private val section: String,
+) : PagingSource<Int, SectionResult>() {
 
-class RecommendationsPagingSource(
-    private val service: NytPopularService,
-    private val type: String,
-) : PagingSource<Int, MostPopularResult>() {
-
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MostPopularResult> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SectionResult> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = service.loadNews(type = type)
+            val response = nytSectionsService.loadSections(section = section)
             var newsItems = response.results
             if (page == STARTING_PAGE_INDEX) {
                 if (newsItems.size >= 10) {
@@ -42,10 +39,11 @@ class RecommendationsPagingSource(
     }
 
 
-    override fun getRefreshKey(state: PagingState<Int, MostPopularResult>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, SectionResult>): Int? {
         return state.anchorPosition?.let {
             state.closestPageToPosition(it)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
         }
     }
+
 }

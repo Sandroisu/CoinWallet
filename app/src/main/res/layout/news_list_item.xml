@@ -11,7 +11,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="mostPopularNews"
-            type="ru.slatinin.nytnews.data.news.MostPopularResult"/>
+            type="ru.slatinin.nytnews.data.nytmostpopular.MostPopularResult"/>
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.slatinin.nytnews.data.news.MostPopularResult
+import ru.slatinin.nytnews.data.nytmostpopular.MostPopularResult
 import ru.slatinin.nytnews.databinding.NewsListItemBinding
 
 class NytPopularAdapter :

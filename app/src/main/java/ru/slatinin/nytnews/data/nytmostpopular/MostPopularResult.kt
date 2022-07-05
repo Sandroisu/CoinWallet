@@ -1,7 +1,6 @@
-package ru.slatinin.nytnews.data.news
+package ru.slatinin.nytnews.data.nytmostpopular
 
 import com.google.gson.annotations.SerializedName
-import ru.slatinin.nytnews.data.viewdata.NewsItem
 
 data class MostPopularResult(
     @field:SerializedName("section") val section: String,

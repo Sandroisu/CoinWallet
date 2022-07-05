@@ -1,4 +1,4 @@
-package ru.slatinin.nytnews.data.news
+package ru.slatinin.nytnews.data.nytmostpopular
 
 import com.google.gson.annotations.SerializedName
 const val STANDARD_THUMB_CONST = "mediumThreeByTwo210"

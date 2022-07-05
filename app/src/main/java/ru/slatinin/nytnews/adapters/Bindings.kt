@@ -9,8 +9,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import ru.slatinin.nytnews.R
 import ru.slatinin.nytnews.data.RssReader
-import ru.slatinin.nytnews.data.news.MostPopularMultimedia
-import ru.slatinin.nytnews.data.news.STANDARD_THUMB_CONST
+import ru.slatinin.nytnews.data.nytmostpopular.MostPopularMultimedia
+import ru.slatinin.nytnews.data.nytmostpopular.STANDARD_THUMB_CONST
 
 @BindingAdapter("imageFromUrl")
 fun bindImageFromUrl(view: ImageView, multimedia: List<MostPopularMultimedia>) {

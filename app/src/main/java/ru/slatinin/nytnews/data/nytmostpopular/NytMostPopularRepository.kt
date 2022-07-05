@@ -1,15 +1,14 @@
-package ru.slatinin.nytnews.data
+package ru.slatinin.nytnews.data.nytmostpopular
 
 import androidx.paging.*
 import kotlinx.coroutines.flow.Flow
-import ru.slatinin.nytnews.data.news.MostPopularResult
 import javax.inject.Inject
 import javax.inject.Singleton
 
 
 @Singleton
-class NytPopularRepository @Inject constructor(
-    private val newsService: NytPopularService
+class NytMostPopularRepository @Inject constructor(
+    private val newsServiceMost: NytMostPopularService
 ) {
 
     fun loadPopularResultStream(type: String): Flow<PagingData<MostPopularResult>> {
@@ -20,7 +19,7 @@ class NytPopularRepository @Inject constructor(
                 initialLoadSize = 10,
                 maxSize = 20
             ),
-            pagingSourceFactory = { RecommendationsPagingSource(newsService, type) }
+            pagingSourceFactory = { NytMostPopularPagingSource(newsServiceMost, type) }
         ).flow
     }
 
