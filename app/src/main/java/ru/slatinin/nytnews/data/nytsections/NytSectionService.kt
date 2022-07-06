@@ -15,7 +15,7 @@ interface NytSectionService {
     suspend fun loadSections(
         @Path("section") section: String,
         @Query("api-key") clientId: String = BuildConfig.NEW_YORK_TIMES
-    ): NytSectionResponse
+    ): SectionResponse
 
     companion object {
         private const val BASE_URL = "https://api.nytimes.com/"

@@ -9,6 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.slatinin.nytnews.data.nytmostpopular.MostPopularResult
+import ru.slatinin.nytnews.databinding.ItemMostPopularBinding
 import ru.slatinin.nytnews.databinding.NewsListItemBinding
 
 class NytPopularAdapter :
@@ -16,7 +17,7 @@ class NytPopularAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
-            NewsListItemBinding.inflate(
+            ItemMostPopularBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -30,7 +31,7 @@ class NytPopularAdapter :
     }
 
     class NewsViewHolder(
-        private val binding: NewsListItemBinding
+        private val binding: ItemMostPopularBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {

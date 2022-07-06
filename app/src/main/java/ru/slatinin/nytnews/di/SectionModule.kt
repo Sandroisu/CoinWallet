@@ -9,6 +9,8 @@ import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
 import ru.slatinin.nytnews.R
 import ru.slatinin.nytnews.data.models.SectionItem
+import ru.slatinin.nytnews.data.nytmostpopular.NytMostPopularService
+import ru.slatinin.nytnews.data.nytsections.NytSectionService
 
 @Module
 @InstallIn(ActivityComponent::class)
@@ -22,6 +24,11 @@ class SectionModule {
             arr.add(SectionItem(sectionName))
         }
         return arr
+    }
+
+    @Provides
+    fun getNytSectionService(): NytSectionService {
+        return NytSectionService.create()
     }
 
 }

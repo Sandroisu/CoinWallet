@@ -65,15 +65,20 @@
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/drawable/ic_wallet.xml" value="0.1355" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout-land/fragment_news.xml" value="0.15961199294532627" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout-land/news_list_item.xml" value="0.15961199294532627" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_browser.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_browser_favorites.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_news.xml" value="0.25" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_popular.xml" value="0.14" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_section.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_sections.xml" value="0.25" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_trending.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_view_pager.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_wallet.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/icon_text_arrow_view.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/item_most_popular.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/item_rt_rss.xml" value="0.125" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/item_section.xml" value="0.23645833333333333" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/item_section_news.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/main_activity.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/news_list_item.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/menu/navigation.xml" value="0.18854166666666666" />

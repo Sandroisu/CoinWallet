@@ -20,14 +20,15 @@
             android:padding="12dp">
 
             <ImageView
-                android:id="@+id/plant_photo"
+                android:id="@+id/most_popular_image"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 app:imageFromUrl="@{mostPopularNews.multimedia}"
                 android:onClick="@{clickListener}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/news" />
 
 
             <TextView
@@ -39,7 +40,7 @@
                 android:maxLines="3"
                 android:textSize="14sp"
                 android:ellipsize="end"
-                app:layout_constraintTop_toBottomOf="@id/plant_photo"
+                app:layout_constraintTop_toBottomOf="@id/most_popular_image"
                 tools:text="Some News"/>
 
 
