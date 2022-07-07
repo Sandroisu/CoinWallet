@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.slatinin.nytnews.data.nytmostpopular.NytMostPopularService
 import ru.slatinin.nytnews.data.RssReader
+import ru.slatinin.nytnews.data.nytsections.NytSectionService
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -24,6 +25,10 @@ class NewsModule() {
         return RssReader()
     }
 
+    @Provides
+    fun getNytSectionService(): NytSectionService {
+        return NytSectionService.create()
+    }
 
 
 }

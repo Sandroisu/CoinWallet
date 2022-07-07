@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.slatinin.nytnews.data.nytmostpopular.MostPopularResult
 import ru.slatinin.nytnews.databinding.ItemMostPopularBinding
-import ru.slatinin.nytnews.databinding.NewsListItemBinding
 
 class NytPopularAdapter :
     PagingDataAdapter<MostPopularResult, RecyclerView.ViewHolder>(NewsDiffCallback()) {

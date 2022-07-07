@@ -26,9 +26,6 @@ class SectionModule {
         return arr
     }
 
-    @Provides
-    fun getNytSectionService(): NytSectionService {
-        return NytSectionService.create()
-    }
+
 
 }

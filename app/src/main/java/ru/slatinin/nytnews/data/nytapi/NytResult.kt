@@ -1,5 +1,6 @@
 package ru.slatinin.nytnews.data.nytapi
 
 interface NytResult {
-    fun get
+    fun getResultTitle():String
+    fun getMultimediaItems():
 }

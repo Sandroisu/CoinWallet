@@ -38,7 +38,7 @@ class SectionFragment : Fragment() {
         nytJob?.cancel()
         nytJob = lifecycleScope.launch {
             viewModel.loadSection().collectLatest {
-                nytAdapter.submitData(it)
+
             }
         }
     }

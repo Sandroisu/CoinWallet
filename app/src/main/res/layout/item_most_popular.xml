@@ -11,7 +11,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="mostPopularNews"
-            type="ru.slatinin.nytnews.data.nytmostpopular.MostPopularResult"/>
+            type="ru.slatinin.nytnews.data.nytapi.NytResult"/>
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
                 android:id="@+id/most_popular_image"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                app:imageFromUrl="@{mostPopularNews.multimedia}"
+                app:imageFromUrl="@{mostPopularNews.multimediaItems}"
                 android:onClick="@{clickListener}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="12dp"
-                android:text="@{mostPopularNews.abstract}"
+                android:text="@{mostPopularNews.resultTitle}"
                 android:maxLines="3"
                 android:textSize="14sp"
                 android:ellipsize="end"
