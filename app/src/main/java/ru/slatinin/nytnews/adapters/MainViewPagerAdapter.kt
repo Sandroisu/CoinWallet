@@ -16,7 +16,7 @@ class MainViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) 
     private val bottomNavFragmentsCreators: Map<Int, () -> Fragment> = mapOf(
         RECOMMENDED_INDEX to { TrendingFragment() },
         BROWSER_INDEX to { BrowserFragment() },
-        NEWS_INDEX to { WalletFragment() },
+        NEWS_INDEX to { SearchFragment() },
         EXCHANGE_INDEX to { SectionsFragment() },
         SETTINGS_INDEX to { SettingsFragment() }
     )

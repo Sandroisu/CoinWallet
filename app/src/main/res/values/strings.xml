@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NYTNews</string>
+    <string name="app_name">Pluralism</string>
     <string name="splash_fragment">Hello!</string>
     <string name="wallet">Wallet</string>
     <string name="news">News</string>
@@ -32,6 +32,7 @@
     <string name="op_ed">Op-ed</string>
     <string name="games">Games</string>
     <string name="section">Section</string>
+    <string name="search">Search</string>
 
     <string-array name="section_names">
         <item>@string/world_news</item>

@@ -9,8 +9,8 @@
 
     <fragment
         android:id="@+id/wallet_fragment"
-        android:name="ru.slatinin.nytnews.ui.fragments.WalletFragment"
+        android:name="ru.slatinin.nytnews.ui.fragments.SearchFragment"
         android:label="@string/news"
-        tools:layout="@layout/fragment_wallet"/>
+        tools:layout="@layout/fragment_search"/>
 
 </navigation>

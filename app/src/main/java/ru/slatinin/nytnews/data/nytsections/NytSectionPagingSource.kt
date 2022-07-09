@@ -2,14 +2,15 @@ package ru.slatinin.nytnews.data.nytsections
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import ru.slatinin.nytnews.data.nytapi.NytResult
 import ru.slatinin.nytnews.data.nytsections.SectionResult
 
 private const val STARTING_PAGE_INDEX = 1
 class NytSectionPagingSource (private val nytSectionsService: NytSectionService,
                               private val section: String,
-) : PagingSource<Int, SectionResult>() {
+) : PagingSource<Int, NytResult>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SectionResult> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NytResult> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
             val response = nytSectionsService.loadSections(section = section)
@@ -39,7 +40,7 @@ class NytSectionPagingSource (private val nytSectionsService: NytSectionService,
     }
 
 
-    override fun getRefreshKey(state: PagingState<Int, SectionResult>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, NytResult>): Int? {
         return state.anchorPosition?.let {
             state.closestPageToPosition(it)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(it)?.nextKey?.minus(1)

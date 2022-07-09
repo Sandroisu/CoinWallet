@@ -1,18 +1,15 @@
 package ru.slatinin.nytnews.adapters
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.slatinin.nytnews.data.nytmostpopular.MostPopularResult
+import ru.slatinin.nytnews.data.nytapi.NytResult
 import ru.slatinin.nytnews.databinding.ItemMostPopularBinding
 
-class NytPopularAdapter :
-    PagingDataAdapter<MostPopularResult, RecyclerView.ViewHolder>(NewsDiffCallback()) {
+class NytPopularAdapter(private val browseLinkCallback: BrowseLinkCallback) :
+    PagingDataAdapter<NytResult, RecyclerView.ViewHolder>(NewsDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
@@ -20,7 +17,7 @@ class NytPopularAdapter :
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ), browseLinkCallback
         )
     }
 
@@ -30,18 +27,18 @@ class NytPopularAdapter :
     }
 
     class NewsViewHolder(
-        private val binding: ItemMostPopularBinding
+        private val binding: ItemMostPopularBinding,
+        private val browseLinkCallback: BrowseLinkCallback
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.setClickListener {
-                binding.mostPopularNews?.let { mostPopularItem ->
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mostPopularItem.url))
-                    ContextCompat.startActivity(binding.root.context, intent, null)
+                binding.mostPopularNews?.let { nytResult ->
+                    browseLinkCallback.onLoadLink(nytResult.getNewsUrl())
                 }
             }
         }
 
-        fun bind(item: MostPopularResult?) {
+        fun bind(item: NytResult?) {
             binding.apply {
                 mostPopularNews = item
                 executePendingBindings()
@@ -49,18 +46,19 @@ class NytPopularAdapter :
         }
     }
 
-    private class NewsDiffCallback : DiffUtil.ItemCallback<MostPopularResult>() {
+    private class NewsDiffCallback : DiffUtil.ItemCallback<NytResult>() {
 
-        override fun areItemsTheSame(old: MostPopularResult, aNew: MostPopularResult): Boolean {
+        override fun areItemsTheSame(old: NytResult, aNew: NytResult): Boolean {
 
-            return old.abstract == aNew.abstract
+            return old.getAbstractText() == aNew.getAbstractText()
         }
 
         override fun areContentsTheSame(
-            old: MostPopularResult,
-            aNew: MostPopularResult
+            old: NytResult,
+            aNew: NytResult
         ): Boolean {
-            return old == aNew
+
+            return old.isEqual(aNew)
         }
     }
 }

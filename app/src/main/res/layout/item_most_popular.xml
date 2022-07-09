@@ -23,7 +23,7 @@
                 android:id="@+id/most_popular_image"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                app:imageFromUrl="@{mostPopularNews.multimediaItems}"
+                app:imageFromUrl="@{mostPopularNews.multimediaUrl}"
                 android:onClick="@{clickListener}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

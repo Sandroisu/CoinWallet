@@ -6,19 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import ru.slatinin.nytnews.databinding.FragmentWalletBinding
+import ru.slatinin.nytnews.databinding.FragmentSearchBinding
 import ru.slatinin.nytnews.viewmodels.WalletViewModel
 
-class WalletFragment : Fragment() {
+class SearchFragment : Fragment() {
 
     private val viewModel: WalletViewModel by viewModels()
-    private lateinit var binding: FragmentWalletBinding
+    private lateinit var binding: FragmentSearchBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentWalletBinding.inflate(inflater, container, false)
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 

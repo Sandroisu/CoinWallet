@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
+import ru.slatinin.nytnews.data.nytapi.NytResult
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,7 +13,7 @@ class NytSectionRepository @Inject constructor(
     private val sectionService: NytSectionService
 ) {
 
-    fun loadSectionResultStream(section: String): Flow<PagingData<SectionResult>> {
+    fun loadSectionResultStream(section: String): Flow<PagingData<NytResult>> {
         return Pager(
             config = PagingConfig(
                 enablePlaceholders = true,

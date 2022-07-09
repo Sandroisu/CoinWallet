@@ -2,6 +2,7 @@ package ru.slatinin.nytnews.data.nytmostpopular
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import ru.slatinin.nytnews.data.nytapi.NytResult
 import ru.slatinin.nytnews.data.nytmostpopular.MostPopularResult
 
 private const val STARTING_PAGE_INDEX = 1
@@ -9,9 +10,9 @@ private const val STARTING_PAGE_INDEX = 1
 class NytMostPopularPagingSource(
     private val serviceMost: NytMostPopularService,
     private val type: String,
-) : PagingSource<Int, MostPopularResult>() {
+) : PagingSource<Int, NytResult>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MostPopularResult> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, NytResult> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
             val response = serviceMost.loadNews(type = type)
@@ -41,7 +42,7 @@ class NytMostPopularPagingSource(
     }
 
 
-    override fun getRefreshKey(state: PagingState<Int, MostPopularResult>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, NytResult>): Int? {
         return state.anchorPosition?.let {
             state.closestPageToPosition(it)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(it)?.nextKey?.minus(1)

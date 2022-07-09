@@ -10,6 +10,7 @@ import ru.slatinin.nytnews.data.nytmostpopular.NytMostPopularRepository
 import ru.slatinin.nytnews.data.RssRepository
 import ru.slatinin.nytnews.data.nytmostpopular.MostPopularResult
 import ru.slatinin.nytnews.data.RssReader
+import ru.slatinin.nytnews.data.nytapi.NytResult
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,17 +19,17 @@ class NewsViewModel @Inject constructor(
     private val rssRepository: RssRepository,
     private val euroRssRepository: RssRepository
 ) : ViewModel() {
-    private var loadViewsResult: Flow<PagingData<MostPopularResult>>? = null
+    private var loadViewsResult: Flow<PagingData<NytResult>>? = null
     private var rtRssItemResult: Flow<PagingData<RssReader.Item>>? = null
     private var euroRssItemResult: Flow<PagingData<RssReader.Item>>? = null
 
-    fun loadPopularByViews(type: String): Flow<PagingData<MostPopularResult>> {
+    fun loadPopularByViews(type: String): Flow<PagingData<NytResult>> {
         return if (loadViewsResult == null) {
             val newResult = repositoryMost.loadPopularResultStream(type).cachedIn(viewModelScope)
             loadViewsResult = newResult
             newResult
         } else {
-            loadViewsResult as Flow<PagingData<MostPopularResult>>
+            loadViewsResult as Flow<PagingData<NytResult>>
         }
     }
 

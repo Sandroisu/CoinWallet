@@ -30,7 +30,7 @@ import ru.slatinin.nytnews.viewmodels.NewsViewModel
 
 @AndroidEntryPoint
 class TrendingFragment : Fragment() {
-    private val nytAdapter = NytPopularAdapter()
+    private var nytAdapter: NytPopularAdapter? = null
     private var euroRssAdapter: RssAdapter? = null
     private var rtRssAdapter: RssAdapter? = null
     private var nytJob: Job? = null
@@ -60,6 +60,13 @@ class TrendingFragment : Fragment() {
                 }
             })
         }
+        if(nytAdapter == null){
+            nytAdapter = NytPopularAdapter(object : BrowseLinkCallback {
+                override fun onLoadLink(url: String) {
+                    findNavController().navigate(TrendingFragmentDirections.trendingToBrowser(url))
+                }
+            })
+        }
         binding.nytList.layoutManager = getLayoutManager()
         binding.euronewsList.layoutManager = getLayoutManager()
         binding.rtList.layoutManager = getLayoutManager()
@@ -68,11 +75,13 @@ class TrendingFragment : Fragment() {
         binding.euronewsList.adapter = euroRssAdapter
         binding.rtList.adapter = rtRssAdapter
         lifecycleScope.launch {
-            nytAdapter.loadStateFlow.collectLatest { loadStates ->
-                binding.popularProgress.isVisible = loadStates.refresh is LoadState.Loading
-                binding.popularByViews.isVisible =
-                    loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
-                binding.popularError.isVisible = loadStates.refresh is LoadState.Error
+            nytAdapter?.let {
+                it.loadStateFlow.collectLatest { loadStates ->
+                    binding.popularProgress.isVisible = loadStates.refresh is LoadState.Loading
+                    binding.popularByViews.isVisible =
+                        loadStates.refresh is LoadState.NotLoading && loadStates.refresh !is LoadState.Error
+                    binding.popularError.isVisible = loadStates.refresh is LoadState.Error
+                }
             }
         }
         lifecycleScope.launch {
@@ -128,7 +137,7 @@ class TrendingFragment : Fragment() {
         nytJob?.cancel()
         nytJob = lifecycleScope.launch {
             viewModel.loadPopularByViews("viewed").collectLatest {
-                nytAdapter.submitData(it)
+                nytAdapter?.submitData(it)
             }
         }
         euronewsJob?.cancel()

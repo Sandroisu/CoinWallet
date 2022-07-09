@@ -15,53 +15,20 @@ import ru.slatinin.nytnews.data.nytsections.NYT_SECTION_THUMB_CONST
 import ru.slatinin.nytnews.data.nytsections.NytSectionMultimedia
 
 @BindingAdapter("imageFromUrl")
-fun bindImageFromUrl(view: ImageView, multimedia: List<MostPopularMultimedia>) {
+fun bindImageFromUrl(view: ImageView, url: String) {
 
-    if (multimedia.isEmpty() || multimedia[0].mostPopularMediaMetaData.isEmpty()) {
+    if (url.isEmpty()) {
         view.setImageResource(R.drawable.ic_recommended)
         return
     }
     val radius = view.context.resources.getDimensionPixelSize(R.dimen.image_corner_radius)
-    var normalMedia = multimedia[0].mostPopularMediaMetaData[0]
-    for (media in multimedia[0].mostPopularMediaMetaData) {
-        if (media.format == STANDARD_THUMB_CONST) {
-            normalMedia = media
-            break
-        }
-    }
     Glide.with(view.context)
-        .load(normalMedia.mediaUrl)
+        .load(url)
         .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
         .transform(CenterInside(), RoundedCorners(radius))
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(view)
-
 }
-
-@BindingAdapter("sectionImageFromUrl")
-fun bindSectionImageFromUrl(view: ImageView, multimedia: List<NytSectionMultimedia>) {
-
-    if (multimedia.isEmpty() || multimedia[0].url.isEmpty()) {
-        view.setImageResource(R.drawable.ic_recommended)
-        return
-    }
-    val radius = view.context.resources.getDimensionPixelSize(R.dimen.image_corner_radius)
-    var normalMedia = multimedia[0].url
-    for (media in multimedia) {
-        if (media.format == NYT_SECTION_THUMB_CONST) {
-            normalMedia = media.url
-            break
-        }
-    }
-    Glide.with(view.context)
-        .load(normalMedia)
-        .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-        .transform(CenterInside(), RoundedCorners(radius))
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .into(view)
-
-}
-
 
 @BindingAdapter("imageFromRssUrl")
 fun bindImageFromRss(view: ImageView, rssItem: RssReader.Item) {
