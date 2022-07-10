@@ -1,9 +1,10 @@
 package ru.slatinin.nytnews.data.nytsections
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 import ru.slatinin.nytnews.R
 import ru.slatinin.nytnews.data.nytapi.NytResult
-
+@Keep
 data class SectionResult(
     @field:SerializedName("section") val section: String,
     @field:SerializedName("title") val title: String,

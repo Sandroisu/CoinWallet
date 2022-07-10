@@ -69,6 +69,7 @@
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_browser_favorites.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_news.xml" value="0.25" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_popular.xml" value="0.14" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_search.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_section.xml" value="0.23645833333333333" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_sections.xml" value="0.25" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/fragment_trending.xml" value="0.23645833333333333" />
@@ -82,6 +83,7 @@
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/main_activity.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/layout/news_list_item.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/menu/navigation.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/alex/AndroidStudioProjects/NYTNews/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1605" />
       </map>
     </option>
   </component>
